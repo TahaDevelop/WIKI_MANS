@@ -30,4 +30,5 @@ public class ArticleDAO {
 		em.remove(id);	
 		tx.commit();
 	}
+	
 }
