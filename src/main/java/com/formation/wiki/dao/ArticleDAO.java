@@ -29,6 +29,5 @@ public class ArticleDAO {
 		tx.begin();
 		em.remove(id);	
 		tx.commit();
-	}
-	
+	}	
 }
