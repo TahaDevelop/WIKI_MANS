@@ -13,6 +13,7 @@ public class Main {
 		
 		//Test création et insertion USER OK
 		Utilisateur user=new Utilisateur();
+		//Taha COmment GIT
 		user.setLogin("Taha");
 		user.setPassword("taa");
 		user.setActiver(true);	
