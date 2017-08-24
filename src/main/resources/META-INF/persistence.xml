@@ -1,0 +1,18 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="1.0">
+	<persistence-unit name="PU_WIKI" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<properties>
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3307/wiki" />
+			<property name="hibernate.max_fetch_depth" value="3" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
+
+	</persistence-unit>
+</persistence>
