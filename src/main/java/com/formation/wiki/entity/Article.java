@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 public class Article  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+//	attentionrtzerze
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
