@@ -84,7 +84,7 @@ public class ArticleDAO {
 		return listArticles;
 	}
 
-	// --------------------------------gelAllArticle pr un autheur
+	// --------------------------------gelAllArticle pr un auteur
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleByAuthor(String user) {
 		Query q = em.createQuery("SELECT a FROM Article a WHERE a.user= :user");
@@ -120,6 +120,14 @@ public class ArticleDAO {
 		return listArticles;
 	}
 	
+	//-----------------------Afficher articles avec statut reportedasabused
+	@SuppressWarnings("unchecked")
+	public List<Article> getAllArticleReportedasabused() {
+		Query q = em.createQuery("SELECT a FROM Article a, Statut s WHERE a.statut=s.id and s.reportedasabused= true");
+		List<Article> listArticles = (List<Article>) q.getResultList();
+		return listArticles;
+	}
+	
 
 	/// partie Statistiques de notre
 	/// WIKI------------------------------------------------------------------------
@@ -128,7 +136,7 @@ public class ArticleDAO {
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticlebyMonth() {
 		Query q = em.createQuery("SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate);");
-		//verifier cette synthaxe type de retour incorrect
+		//verifier cette syntaxe type de retour incorrect
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
