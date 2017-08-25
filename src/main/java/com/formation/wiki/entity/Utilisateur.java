@@ -17,10 +17,18 @@ import javax.persistence.OneToOne;
 
 
 @Entity
+
+
+/** Autheur : Sahobi
+ *  Methodes: Utilisateur getById et getBylogin pour recuperer l'utilisateur
+ * */
 @NamedQueries({
-	@NamedQuery(name="Utilisateur.findById",query="SELECT u FROM Utilisateur u WHERE u.idUser= :id"),
-	@NamedQuery(name="Utilisateur.findByLogin",query="SELECT u FROM Utilisateur u WHERE u.login= :login"),
+	@NamedQuery(name="Utilisateur.findById",query="SELECT u FROM Utilisateur u WHERE u.idUser=:id"),
+	@NamedQuery(name="Utilisateur.findByLogin",query="SELECT u FROM Utilisateur u WHERE u.login=:login"),
+	@NamedQuery(name="Utilisateur.getById",query="SELECT u FROM Utilisateur u WHERE  u.idUser=:id"),
+	@NamedQuery(name="Utilisateur.getByLogin",query="SELECT u FROM Utilisateur u WHERE  u.login=:login"),
 	@NamedQuery(name="Utilisateur.findNotActivated",query="SELECT u FROM Utilisateur u WHERE u.activer= false")
+
 })
 public class Utilisateur implements Serializable {
 
