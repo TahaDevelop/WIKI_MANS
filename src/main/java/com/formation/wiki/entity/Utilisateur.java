@@ -37,12 +37,21 @@ public class Utilisateur implements Serializable {
 	private String prenom;
 	private String email;
 	private String tel;
-	
 	private Boolean activer;
+	private int reportAbuser;
+	
 	//Mapping entre Utilisateur <--> Article
 	@OneToMany(fetch=FetchType.LAZY)
 	private List<Article> articles;
 	
+	public int getReportAbuser() {
+		return reportAbuser;
+	}
+
+	public void setReportAbuser(int reportAbuser) {
+		this.reportAbuser = reportAbuser;
+	}
+
 	@OneToMany(fetch=FetchType.LAZY)
 	private List<Commentaire> commentaires;
 	
@@ -168,12 +177,11 @@ public class Utilisateur implements Serializable {
 	@Override
 	public String toString() {
 		return "Utilisateur [idUser=" + idUser + ", login=" + login + ", password=" + password + ", nom=" + nom
-				+ ", prenom=" + prenom + ", email=" + email + ", tel=" + tel + "]";
+				+ ", prenom=" + prenom + ", email=" + email + ", tel=" + tel + ", activer=" + activer
+				+ ", reportAbuser=" + reportAbuser + ", articles=" + articles + ", commentaires=" + commentaires
+				+ ", role=" + role + "]";
 	}
-	
-	
-	
-	
+
 	
 	
 }
