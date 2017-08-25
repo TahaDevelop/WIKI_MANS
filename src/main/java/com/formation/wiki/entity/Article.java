@@ -21,15 +21,32 @@ import javax.persistence.TemporalType;
 public class Article  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+//	attentionrtzerze
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
 	private String title;
-	
+	private Integer reportNumber;
+	private String categorie;
 	private String keywords;
 	
+	public Integer getReportNumber() {
+		return reportNumber;
+	}
+
+	public void setReportNumber(Integer reportNumber) {
+		this.reportNumber = reportNumber;
+	}
+
+	public String getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
+	}
+
 	@Temporal(TemporalType.DATE)
 	private Date publishDate;
 	
