@@ -1,6 +1,8 @@
 package com.formation.wiki.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -133,13 +135,31 @@ public class ArticleDAO {
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
+<<<<<<< HEAD
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticlebyMonth() {
 		Query q = em.createQuery("SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate);");
 		//verifier cette syntaxe type de retour incorrect
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
+=======
+@SuppressWarnings("unchecked")
+public Map<String,Integer> getArticlebyMonth() {
+
+		String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
+		Query query = em.createQuery(script);
+		List<Object[]> listMonth = query.getResultList();
+		 Map<String,Integer> hm= new HashMap<String,Integer>();
+		 for (Object ligneAsObject : listMonth) {
+
+		     // ligne correspond à une des lignes du résultat
+		    Object[] ligne = (Object[])ligneAsObject ;
+		    hm.put((String)ligne[0], (Integer)ligne[1] );
+		 }
+		return hm;
+	
+
+>>>>>>> 31da4317b38e79713c96260b3de9863cee6784a0
 	}
-	// getMax des mois
 
 }
