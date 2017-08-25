@@ -1,10 +1,7 @@
 package com.formation.wiki.dao;
 
-<<<<<<< HEAD
-public class CommentaireDAO {
 
-}
-=======
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -82,6 +79,3 @@ public class CommentaireDAO {
 
 
 
-
-
->>>>>>> 806791240ec046dbb4e6819fc6c0ffbbcda06d40
