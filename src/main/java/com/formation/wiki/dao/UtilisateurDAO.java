@@ -33,9 +33,26 @@ public class UtilisateurDAO {
 
 		String role_user = null;
 		Query q = em.createQuery(
-				"select user from Utilisateur user where user.login = :login and " + "user.password= :mdp");
+				"select user from Utilisateur user where user.login =:login and " + "user.password=:mdp");
 		q.setParameter("login", login);
 		q.setParameter("mdp", mdp);
+		Utilisateur user_exist = (Utilisateur) q.getSingleResult();
+		if (user_exist != null) {
+			role_user = user_exist.getRole().getName();
+		}
+		return role_user;
+	}
+
+	/*
+	 * isUserExist(user)
+	 */
+	public String isUserExist(Utilisateur user) throws SQLException, TimeoutException,NoResultException {
+
+		String role_user = null;
+		Query q = em.createQuery(
+				"select user from Utilisateur user where user.login =:login and " + "user.password=:mdp");
+//		q.setParameter("login", login);
+//		q.setParameter("mdp", mdp);
 		Utilisateur user_exist = (Utilisateur) q.getSingleResult();
 		if (user_exist != null) {
 			role_user = user_exist.getRole().getName();
