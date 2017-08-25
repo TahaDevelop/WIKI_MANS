@@ -81,6 +81,34 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
+<<<<<<< HEAD
+	
+	/** Autheur: Sahobi
+	 * methode getUserById
+	 */
+	public Utilisateur getUserById(int id) {	
+		Utilisateur user = null;
+		Query q = em.createNamedQuery("Utilisateur.getById");
+		q.setParameter("id", id);
+		user = (Utilisateur) q.getSingleResult();
+		System.out.println("l'article dont l'id " + id + " est : " + user);
+		return user;
+	}
+	
+	/** Autheur: Sahobi
+	 *  methode getUserByLogin
+	 */
+	public Utilisateur getUserByLogin(String login) {	
+		Utilisateur user = null;
+		Query q = em.createNamedQuery("Utilisateur.getByLogin");
+		q.setParameter("login", login);
+		user = (Utilisateur) q.getSingleResult();
+		System.out.println("l'utilisateur  dont le login " + login + " est : " + user);
+		return user;
+	}
+
+	
+=======
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
 			   
@@ -162,5 +190,6 @@ public class UtilisateurDAO {
 		return lusers;
 >>>>>>> ce04a12d8aa321d13811c55879ff1b04e63480dd
 	}
+>>>>>>> 806791240ec046dbb4e6819fc6c0ffbbcda06d40
 }
 
