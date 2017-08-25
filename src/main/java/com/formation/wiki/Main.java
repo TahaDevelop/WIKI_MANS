@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		//Test création et insertion USER OK
+		//Test creation et insertion USER OK
 		Utilisateur user=new Utilisateur();
 		//Taha COmment GIT
 		user.setLogin("Taha");

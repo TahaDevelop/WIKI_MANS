@@ -24,6 +24,9 @@ public class UtilisateurDAO {
 		tx = em.getTransaction();
 	}
 
+	/*
+	 * isUserExist(login, mdp)
+	 */
 	public String isUserExist(String login, String mdp) throws SQLException, TimeoutException,NoResultException {
 
 		String role_user = null;
@@ -38,7 +41,9 @@ public class UtilisateurDAO {
 		return role_user;
 	}
 
-	// Methode d'ajout d'utilisateur
+	/*
+	 * addUser(user) : ajout d'un utilisateur
+	 */
 	public void addUser(Utilisateur user) {
 		Role role=new Role();
 		role.setName("ADMIN");
@@ -46,11 +51,14 @@ public class UtilisateurDAO {
 		tx.begin();
 		em.persist(user);
 		// Suppression d'un objet em.remove(entity);
-		// Mise à jour d'un objet em.merge(entity);
-		// Récupération d'un objet em.find(entityClass, primaryKey);
+		// Mise ï¿½ jour d'un objet em.merge(entity);
+		// Rï¿½cupï¿½ration d'un objet em.find(entityClass, primaryKey);
 		tx.commit();
 	}
 
+	/*
+	 * findById(id)
+	 */
 	public Utilisateur findbyId(int id) {
 		Query q = em.createNamedQuery("Utilisateur.findById");
 		q.setParameter("id", id);
@@ -58,6 +66,9 @@ public class UtilisateurDAO {
 		return user;
 	}
 
+	/*
+	 * changeEtatUser(user)
+	 */
 	public void changerEtatUser(Utilisateur user) {
 		if (user.getActiver() == false) {
 			user.setActiver(true);
