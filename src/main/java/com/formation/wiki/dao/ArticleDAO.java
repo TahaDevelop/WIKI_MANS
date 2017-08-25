@@ -23,7 +23,7 @@ public class ArticleDAO {
 		tx = em.getTransaction();
 	}
 
-	// Methode d'ajout d'un article
+	// Methode pour ajouter un article
 	public void addArt(Article article) {
 		tx.begin();
 		em.persist(article);
