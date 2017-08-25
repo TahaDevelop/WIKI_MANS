@@ -1,52 +1,4 @@
-<<<<<<< HEAD
-package com.formation.wiki.dao;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
-import com.formation.wiki.entity.Article;
-import com.formation.wiki.entity.Commentaire;
-import com.formation.wiki.entity.Statut;
-
-public class ArticleDAO {
-
-	private EntityManager em;
-	private EntityTransaction tx;
-
-	public ArticleDAO() {
-		super();
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU_WIKI");
-		em = emf.createEntityManager();
-		tx = em.getTransaction();
-	}
-	
-	
-	// GetArticle en attendre d`aprove
-	public List<Article> getArticleAttendre() {	
-		String query = "SELECT art FROM Article art WHERE art.statut.waitingforvalidation =:true";
-		Query q = em.createQuery(query);
-		List<Article> resultsAttendreAprove = q.getResultList();
-		return resultsAttendreAprove;		
-	}
-
-	// Article du mois
-	public Object[] articleDuMois(){
-		String query = "SELECT art.commentaires.size,art FROM Article art ORDER BY art.commentaires.size DESC";
-		Query q = em.createQuery(query);
-	//	Article a = (Article) q.getFirstResult();
-		System.out.println(q.getResultList());
-		return null;		
-	}
-
-}
-=======
 package com.formation.wiki.dao;
 
 import java.util.HashMap;
@@ -148,7 +100,8 @@ public class ArticleDAO {
 	/// partie Abusers de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
-	// --------------------------------article approuvé/désaprouvé pour un report
+	// --------------------------------article approuvé/désaprouvé pour un
+	/// report
 	public void setReportArticle(Article article) {
 		Statut st = article.getStatut();
 
@@ -163,6 +116,7 @@ public class ArticleDAO {
 		tx.commit();
 
 	}
+
 	// ---------------------------get all article with reported status
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleReported() {
@@ -170,46 +124,51 @@ public class ArticleDAO {
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
-	
-	//-----------------------Afficher articles avec statut reportedasabused
+
+	// -----------------------Afficher articles avec statut reportedasabused
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleReportedasabused() {
 		Query q = em.createQuery("SELECT a FROM Article a, Statut s WHERE a.statut=s.id and s.reportedasabused= true");
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
-	
+
+	// GetArticle en attendre d`aprove
+	public List<Article> getArticleAttendre() {
+		String query = "SELECT art FROM Article art WHERE art.statut.waitingforvalidation =:true";
+		Query q = em.createQuery(query);
+		List<Article> resultsAttendreAprove = q.getResultList();
+		return resultsAttendreAprove;
+	}
+
+	// Article du mois
+	public Object[] articleDuMois() {
+		String query = "SELECT art.commentaires.size,art FROM Article art ORDER BY art.commentaires.size DESC";
+		Query q = em.createQuery(query);
+		// Article a = (Article) q.getFirstResult();
+		System.out.println(q.getResultList());
+		return null;
+	}
 
 	/// partie Statistiques de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
-<<<<<<< HEAD
 	@SuppressWarnings("unchecked")
-	public List<Article> getAllArticlebyMonth() {
-		Query q = em.createQuery("SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate);");
-		//verifier cette syntaxe type de retour incorrect
-		List<Article> listArticles = (List<Article>) q.getResultList();
-		return listArticles;
-=======
-@SuppressWarnings("unchecked")
-public Map<String,Integer> getArticlebyMonth() {
+	public Map<String, Integer> getArticlebyMonth() {
 
 		String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
 		Query query = em.createQuery(script);
 		List<Object[]> listMonth = query.getResultList();
-		 Map<String,Integer> hm= new HashMap<String,Integer>();
-		 for (Object ligneAsObject : listMonth) {
+		Map<String, Integer> hm = new HashMap<String, Integer>();
+		for (Object ligneAsObject : listMonth) {
 
-		     // ligne correspond à une des lignes du résultat
-		    Object[] ligne = (Object[])ligneAsObject ;
-		    hm.put((String)ligne[0], (Integer)ligne[1] );
-		 }
+			// ligne correspond à une des lignes du résultat
+			Object[] ligne = (Object[]) ligneAsObject;
+			hm.put((String) ligne[0], (Integer) ligne[1]);
+		}
 		return hm;
-	
 
->>>>>>> 31da4317b38e79713c96260b3de9863cee6784a0
 	}
 
 }
->>>>>>> e111b5b3b826c0201eeeb2d934098f8ed42c1e28
