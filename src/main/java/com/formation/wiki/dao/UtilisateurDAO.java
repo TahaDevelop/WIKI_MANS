@@ -1,6 +1,7 @@
 package com.formation.wiki.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.formation.wiki.entity.Commentaire;
 import com.formation.wiki.entity.Role;
 import com.formation.wiki.entity.Utilisateur;
 
@@ -69,4 +71,30 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 
+	//COMMENCE ICI
+	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
+	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
+	
+		tx.begin();
+		user.setLogin(login);
+		user.setPassword(mdp);
+		user.setRole(role);
+		em.merge(user);
+		tx.commit();
+	}
+
+	public void deleteUser(Utilisateur user) {
+	
+		tx.begin();
+		em.remove(user);
+		tx.commit();
+	}
+	
+	public List<Utilisateur> getAllUsers(){
+		
+		Query query=em.createQuery("select user from Utilisateur user");
+		List<Utilisateur> listeUtilisateur=query.getResultList();
+		return listeUtilisateur;
+	}
 }
+
