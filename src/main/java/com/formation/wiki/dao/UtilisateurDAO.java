@@ -1,7 +1,9 @@
 package com.formation.wiki.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -80,4 +82,14 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 
+	/*
+	 * UsersWaitingActivation()
+	 */
+	public List<Utilisateur> UsersWaitingActivation() {
+		List<Utilisateur> lusers;
+		
+		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
+		lusers = q.getResultList();
+		return lusers;
+	}
 }
