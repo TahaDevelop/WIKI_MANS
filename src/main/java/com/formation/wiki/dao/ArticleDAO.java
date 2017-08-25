@@ -135,31 +135,36 @@ public class ArticleDAO {
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
-<<<<<<< HEAD
+
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticlebyMonth() {
 		Query q = em.createQuery("SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate);");
 		//verifier cette syntaxe type de retour incorrect
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
-=======
-@SuppressWarnings("unchecked")
-public Map<String,Integer> getArticlebyMonth() {
-
-		String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
-		Query query = em.createQuery(script);
-		List<Object[]> listMonth = query.getResultList();
-		 Map<String,Integer> hm= new HashMap<String,Integer>();
-		 for (Object ligneAsObject : listMonth) {
-
-		     // ligne correspond à une des lignes du résultat
-		    Object[] ligne = (Object[])ligneAsObject ;
-		    hm.put((String)ligne[0], (Integer)ligne[1] );
-		 }
-		return hm;
+	}
+	@SuppressWarnings("unchecked")
+	public Map<String,Integer> getArticlebyMonth() {
 	
-
->>>>>>> 31da4317b38e79713c96260b3de9863cee6784a0
+			String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
+			Query query = em.createQuery(script);
+			List<Object[]> listMonth = query.getResultList();
+			 Map<String,Integer> hm= new HashMap<String,Integer>();
+			 for (Object ligneAsObject : listMonth) {
+	
+			     // ligne correspond à une des lignes du résultat
+			    Object[] ligne = (Object[])ligneAsObject ;
+			    hm.put((String)ligne[0], (Integer)ligne[1] );
+			 }
+			return hm;
+		
+		}
+	//-------nombre d'articles par catégorie
+	@SuppressWarnings("unchecked")
+	public List<Article> getAllArticlebyCatg() {
+		Query q = em.createQuery("SELECT categorie, count(*) as number FROM Article a GROUP BY categorie");
+		List<Article> listArticles = (List<Article>) q.getResultList();
+		return listArticles;
 	}
 
 }
