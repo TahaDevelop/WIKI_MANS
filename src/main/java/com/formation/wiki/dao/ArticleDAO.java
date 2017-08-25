@@ -19,22 +19,21 @@ public class ArticleDAO {
 
 	public ArticleDAO() {
 		super();
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU_WIKI");
-		em = emf.createEntityManager();
+		em = WikiEntityManager.getInstance().getEntityManager();
 		tx = em.getTransaction();
 	}
 
 	// Methode d'ajout d'un article
-	public void addArt(Article id) {
+	public void addArt(Article article) {
 		tx.begin();
-		em.persist(id);
+		em.persist(article);
 		tx.commit();
 	}
 
 	// Methode pour supprimer d'un article
-	public void suppArt(Article id) {
+	public void suppArt(Article article) {
 		tx.begin();
-		em.remove(id);
+		em.remove(article);
 		tx.commit();
 	}
 

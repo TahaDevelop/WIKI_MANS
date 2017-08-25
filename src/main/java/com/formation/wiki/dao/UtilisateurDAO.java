@@ -125,7 +125,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 
-<<<<<<< HEAD
+
 	//COMMENCE ICI
 	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
@@ -145,22 +145,21 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-	public List<Utilisateur> getAllUsers(){
-		
+	@SuppressWarnings("unchecked")
+	public List<Utilisateur> getAllUsers(){		
 		Query query=em.createQuery("select user from Utilisateur user");
 		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
-=======
+	}
 	/*
 	 * UsersWaitingActivation()
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Utilisateur> UsersWaitingActivation() {
 		List<Utilisateur> lusers;
-		
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = q.getResultList();
 		return lusers;
->>>>>>> ce04a12d8aa321d13811c55879ff1b04e63480dd
 	}
 }
 
