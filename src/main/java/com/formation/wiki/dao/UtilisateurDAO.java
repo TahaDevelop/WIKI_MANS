@@ -68,5 +68,49 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
+	
+		//	Created by SY : Authentification to create User 
+		//	If the user is deactivated else return null
+			   
+	public String AuthentificationUser(Utilisateur user) {
+	
+		String role_user = null;
+		
+		if (user.getActiver() == true) {
+			role_user = user.getRole().getName();
+		}
+		
+		return role_user;
+		
+	}
+	
+	// Created by SY : Create User 
+	
+	public void CreationUser(Utilisateur user, String typeUser) {
+
+		Role role=new Role();
+		role.setName(typeUser);
+		user.setRole(role);
+		addUser(user);
+		
+	}
+	
+	// Created by SY : Activer User
+	
+	public void activerUser(Utilisateur user) {
+		user.setActiver(true);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+	}
+	
+	// Created by SY : Deactiver User
+	
+	public void deactiverUser(Utilisateur user) {
+		user.setActiver(false);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+	}
 
 }
