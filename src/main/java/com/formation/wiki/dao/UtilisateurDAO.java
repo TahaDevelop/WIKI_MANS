@@ -3,6 +3,7 @@ package com.formation.wiki.dao;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -26,6 +27,9 @@ public class UtilisateurDAO {
 		tx = em.getTransaction();
 	}
 
+	/*
+	 * isUserExist(login, mdp)
+	 */
 	public String isUserExist(String login, String mdp) throws SQLException, TimeoutException,NoResultException {
 
 		String role_user = null;
@@ -40,7 +44,9 @@ public class UtilisateurDAO {
 		return role_user;
 	}
 
-	// Methode d'ajout d'utilisateur
+	/*
+	 * addUser(user) : ajout d'un utilisateur
+	 */
 	public void addUser(Utilisateur user) {
 		Role role=new Role();
 		role.setName("ADMIN");
@@ -48,11 +54,14 @@ public class UtilisateurDAO {
 		tx.begin();
 		em.persist(user);
 		// Suppression d'un objet em.remove(entity);
-		// Mise à jour d'un objet em.merge(entity);
-		// Récupération d'un objet em.find(entityClass, primaryKey);
+		// Mise ï¿½ jour d'un objet em.merge(entity);
+		// Rï¿½cupï¿½ration d'un objet em.find(entityClass, primaryKey);
 		tx.commit();
 	}
 
+	/*
+	 * findById(id)
+	 */
 	public Utilisateur findbyId(int id) {
 		Query q = em.createNamedQuery("Utilisateur.findById");
 		q.setParameter("id", id);
@@ -60,6 +69,9 @@ public class UtilisateurDAO {
 		return user;
 	}
 
+	/*
+	 * changeEtatUser(user)
+	 */
 	public void changerEtatUser(Utilisateur user) {
 		if (user.getActiver() == false) {
 			user.setActiver(true);
@@ -70,7 +82,52 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
+	
+		//	Created by SY : Authentification to create User 
+		//	If the user is deactivated else return null
+			   
+	public String AuthentificationUser(Utilisateur user) {
+	
+		String role_user = null;
+		
+		if (user.getActiver() == true) {
+			role_user = user.getRole().getName();
+		}
+		
+		return role_user;
+		
+	}
+	
+	// Created by SY : Create User 
+	
+	public void CreationUser(Utilisateur user, String typeUser) {
 
+		Role role=new Role();
+		role.setName(typeUser);
+		user.setRole(role);
+		addUser(user);
+		
+	}
+	
+	// Created by SY : Activer User
+	
+	public void activerUser(Utilisateur user) {
+		user.setActiver(true);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+	}
+	
+	// Created by SY : Deactiver User
+	
+	public void deactiverUser(Utilisateur user) {
+		user.setActiver(false);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+	}
+
+<<<<<<< HEAD
 	//COMMENCE ICI
 	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
@@ -95,6 +152,17 @@ public class UtilisateurDAO {
 		Query query=em.createQuery("select user from Utilisateur user");
 		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
+=======
+	/*
+	 * UsersWaitingActivation()
+	 */
+	public List<Utilisateur> UsersWaitingActivation() {
+		List<Utilisateur> lusers;
+		
+		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
+		lusers = q.getResultList();
+		return lusers;
+>>>>>>> ce04a12d8aa321d13811c55879ff1b04e63480dd
 	}
 }
 
