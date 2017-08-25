@@ -68,5 +68,31 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
+	
+	
+	/** Autheur: Sahobi
+	 * methode getUserById
+	 */
+	public Utilisateur getUserById(int id) {	
+		Utilisateur user = null;
+		Query q = em.createNamedQuery("Utilisateur.getById");
+		q.setParameter("id", id);
+		user = (Utilisateur) q.getSingleResult();
+		System.out.println("l'article dont l'id " + id + " est : " + user);
+		return user;
+	}
+	
+	/** Autheur: Sahobi
+	 *  methode getUserByLogin
+	 */
+	public Utilisateur getUserByLogin(String login) {	
+		Utilisateur user = null;
+		Query q = em.createNamedQuery("Utilisateur.getByLogin");
+		q.setParameter("login", login);
+		user = (Utilisateur) q.getSingleResult();
+		System.out.println("l'utilisateur  dont le login " + login + " est : " + user);
+		return user;
+	}
 
+	
 }
