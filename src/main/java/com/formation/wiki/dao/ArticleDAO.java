@@ -25,16 +25,16 @@ public class ArticleDAO {
 	}
 
 	// Methode d'ajout d'un article
-	public void addArt(Article id) {
+	public void addArt(Article article) {
 		tx.begin();
-		em.persist(id);
+		em.persist(article);
 		tx.commit();
 	}
 
 	// Methode pour supprimer d'un article
-	public void suppArt(Article id) {
+	public void suppArt(Article article) {
 		tx.begin();
-		em.remove(id);
+		em.remove(article);
 		tx.commit();
 	}
 
@@ -194,5 +194,11 @@ public class ArticleDAO {
 		return hm;
 
 	}
-
+	//-------nombre d'articles par catégorie
+		@SuppressWarnings("unchecked")
+		public List<Article> getAllArticlebyCatg() {
+			Query q = em.createQuery("SELECT categorie, count(*) as number FROM Article a GROUP BY categorie");
+			List<Article> listArticles = (List<Article>) q.getResultList();
+			return listArticles;
+		}
 }
