@@ -164,6 +164,22 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	//COMMENCE ICI
+	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
+	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
+	
+		tx.begin();
+		user.setLogin(login);
+		user.setPassword(mdp);
+		user.setRole(role);
+		em.merge(user);
+		tx.commit();
+	}
+
+>>>>>>> aec5c3a564100124c7a8d38a1feeb3474afd8bde
 	public void deleteUser(Utilisateur user) {
 	
 		tx.begin();

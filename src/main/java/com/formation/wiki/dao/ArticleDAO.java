@@ -1,6 +1,8 @@
 package com.formation.wiki.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -84,7 +86,7 @@ public class ArticleDAO {
 		return listArticles;
 	}
 
-	// --------------------------------gelAllArticle pr un autheur
+	// --------------------------------gelAllArticle pr un auteur
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleByAuthor(String user) {
 		Query q = em.createQuery("SELECT a FROM Article a WHERE a.user= :user");
@@ -120,18 +122,49 @@ public class ArticleDAO {
 		return listArticles;
 	}
 	
+	//-----------------------Afficher articles avec statut reportedasabused
+	@SuppressWarnings("unchecked")
+	public List<Article> getAllArticleReportedasabused() {
+		Query q = em.createQuery("SELECT a FROM Article a, Statut s WHERE a.statut=s.id and s.reportedasabused= true");
+		List<Article> listArticles = (List<Article>) q.getResultList();
+		return listArticles;
+	}
+	
 
 	/// partie Statistiques de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
+
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticlebyMonth() {
 		Query q = em.createQuery("SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate);");
-		//verifier cette synthaxe type de retour incorrect
+		//verifier cette syntaxe type de retour incorrect
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
-	// getMax des mois
+	@SuppressWarnings("unchecked")
+	public Map<String,Integer> getArticlebyMonth() {
+	
+			String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
+			Query query = em.createQuery(script);
+			List<Object[]> listMonth = query.getResultList();
+			 Map<String,Integer> hm= new HashMap<String,Integer>();
+			 for (Object ligneAsObject : listMonth) {
+	
+			     // ligne correspond à une des lignes du résultat
+			    Object[] ligne = (Object[])ligneAsObject ;
+			    hm.put((String)ligne[0], (Integer)ligne[1] );
+			 }
+			return hm;
+		
+		}
+	//-------nombre d'articles par catégorie
+	@SuppressWarnings("unchecked")
+	public List<Article> getAllArticlebyCatg() {
+		Query q = em.createQuery("SELECT categorie, count(*) as number FROM Article a GROUP BY categorie");
+		List<Article> listArticles = (List<Article>) q.getResultList();
+		return listArticles;
+	}
 
 }
