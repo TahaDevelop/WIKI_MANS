@@ -131,22 +131,47 @@ public class ArticleDAO {
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
+	
+	// ************************** GetArticle en attendre d`aprove, LIUDMILA ********TESTER OK*********
 	@SuppressWarnings("unchecked")
-	// GetArticle en attendre d`aprove
 	public List<Article> getArticleAttendre() {
-		String query = "SELECT art FROM Article art WHERE art.statut.waitingforvalidation =:true";
+		String query = "SELECT art FROM Article art WHERE art.statut.waitingforvalidation =true";
 		Query q = em.createQuery(query);
 		List<Article> resultsAttendreAprove = q.getResultList();
+		System.out.println(resultsAttendreAprove.size());
+//		for(Article article : resultsAttendreAprove){
+//		
+//			System.out.println(article.getTitle());
+//		} 
 		return resultsAttendreAprove;
 	}
 
-	// Article du mois
-	public Object[] articleDuMois() {
-		String query = "SELECT art.commentaires.size,art FROM Article art ORDER BY art.commentaires.size DESC";
+	// ********************************** Article du mois, LIUDMILA **********TEST OK********
+	@SuppressWarnings("unchecked")
+	public String articleDuMois() {
+		String articleDuMois=null;
+		String query = "SELECT art.commentaires.size, art.title FROM Article art ORDER BY art.commentaires.size asc";
 		Query q = em.createQuery(query);
-		// Article a = (Article) q.getFirstResult();
-		System.out.println(q.getResultList());
-		return null;
+		List<Object[]> listMonth = q.getResultList();
+		Map<Integer, String> hm = new HashMap<Integer, String>();
+		for (Object ligneAsObject : listMonth) {
+
+			// ligne correspond à une des lignes du résultat
+			System.out.println();
+			
+			Object[] ligne = (Object[]) ligneAsObject;
+			
+			hm.put((Integer) ligne[0], (String) ligne[1]);
+			
+//			for (Map.Entry mapentry : hm.entrySet()) {
+//		           System.out.println("clé: "+mapentry.getKey() 
+//		                              + " | valeur: " + mapentry.getValue());
+//		        }
+			articleDuMois=(String) ligne[1];
+		}
+		System.out.println(articleDuMois);
+		return articleDuMois;
+
 	}
 
 	/// partie Statistiques de notre
