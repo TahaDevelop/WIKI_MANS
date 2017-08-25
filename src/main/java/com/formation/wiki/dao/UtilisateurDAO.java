@@ -18,9 +18,7 @@ public class UtilisateurDAO {
 	private EntityTransaction tx;
 
 	public UtilisateurDAO() {
-		super();
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU_WIKI");
-		em = emf.createEntityManager();
+		em = WikiEntityManager.getInstance().getEntityManager();
 		tx = em.getTransaction();
 	}
 
