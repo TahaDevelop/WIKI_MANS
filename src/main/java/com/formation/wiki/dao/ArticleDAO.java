@@ -30,7 +30,17 @@ public class ArticleDAO {
 		em.persist(article);
 		tx.commit();
 	}
-
+//methode pour set un statut lors de la création d'un article
+	public Statut addNewStatutWithId(){
+	Statut st=new Statut();
+	st.setPublished(false);
+	st.setWaitingforvalidation(true);
+	st.setReportedasabused(false);
+	tx.begin();
+	em.persist(st);
+	tx.commit();
+	return st;
+}
 	// Methode pour supprimer d'un article
 	public void suppArt(Article article) {
 		tx.begin();
