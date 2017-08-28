@@ -5,12 +5,6 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import javax.persistence.EntityManager;
-<<<<<<< HEAD
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-=======
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -18,7 +12,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.formation.wiki.entity.Commentaire;
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
 import com.formation.wiki.entity.Role;
 import com.formation.wiki.entity.Utilisateur;
 
@@ -52,27 +45,14 @@ public class UtilisateurDAO {
 	/*
 	 * addUser(user) : ajout d'un utilisateur
 	 */
-<<<<<<< HEAD
+
 	// modified by SY : ajoutez Role dois par creationUser 
 	
 	public void addUser(Utilisateur user) {
 		
 		tx.begin();
 		em.persist(user);
-		// Suppression d'un objet em.remove(entity);
-		// Mise � jour d'un objet em.merge(entity);
-		// R�cup�ration d'un objet em.find(entityClass, primaryKey);
-=======
-	public void addUser(Utilisateur user) {
-		Role role=new Role();
-		role.setName("ADMIN");
-		user.setRole(role);
-		tx.begin();
-		em.persist(user);
-		// Suppression d'un objet em.remove(entity);
-		// Mise ï¿½ jour d'un objet em.merge(entity);
-		// Rï¿½cupï¿½ration d'un objet em.find(entityClass, primaryKey);
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
+
 		tx.commit();
 	}
 
@@ -83,10 +63,6 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findById");
 		q.setParameter("id", id);
 		Utilisateur user = (Utilisateur) q.getSingleResult();
-<<<<<<< HEAD
-		System.out.println(user);
-=======
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
 		return user;
 	}
 
@@ -104,11 +80,6 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-
-<<<<<<< HEAD
-=======
-	
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
 	/** Autheur: Sahobi
 	 * methode getUserById
 	 */
@@ -134,18 +105,12 @@ public class UtilisateurDAO {
 	}
 
 	
-<<<<<<< HEAD
-		//	Created by SY : Authentification to create User 
-		//	If the user is deactivated else return null
-			   
-	public String authentificationUser(Utilisateur user) {
-=======
 
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
 			   
-	public String AuthentificationUser(Utilisateur user) {
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
+	public String authentificationUser(Utilisateur user) {
+
 	
 		String role_user = null;
 		
@@ -157,20 +122,12 @@ public class UtilisateurDAO {
 		
 	}
 	
-<<<<<<< HEAD
+
 	// Created by SY 24.08.2017 : Create User 
 	// typeUser : "ADMIN" ou "MEMBRE"
-	
+
+
 	public void creationUser(Utilisateur user, String typeUser) {
-=======
-	// Created by SY : Create User 
-	
-<<<<<<< HEAD
-	public void CreationUser(Utilisateur user, String typeUser) {
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
-=======
-	public void creationUser(Utilisateur user, String typeUser) {
->>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
 
 		Role role=new Role();
 		role.setName(typeUser);
@@ -179,11 +136,7 @@ public class UtilisateurDAO {
 		
 	}
 	
-<<<<<<< HEAD
-	// Created by SY 24.08.2017 : Activer User
-=======
-	// Created by SY : Activer User
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
+
 	
 	public void activerUser(Utilisateur user) {
 		user.setActiver(true);
@@ -192,11 +145,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-<<<<<<< HEAD
-	// Created by SY 24.08.2017 : Deactiver User
-=======
-	// Created by SY : Deactiver User
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
+
 	
 	public void deactiverUser(Utilisateur user) {
 		user.setActiver(false);
@@ -204,7 +153,7 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
-<<<<<<< HEAD
+
 	
 	// Created by SY 25.08.2017 : Increase count by 1 for this abuser
 	
@@ -231,13 +180,6 @@ public class UtilisateurDAO {
 		return isAbuser;
 	}
 
-
-=======
-
-
-	//COMMENCE ICI
-	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
 	
 		tx.begin();
@@ -255,25 +197,15 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-<<<<<<< HEAD
-	@SuppressWarnings("unchecked")
-	public List<Utilisateur> getAllUsers(){
-		
-		Query query=em.createQuery("select user from Utilisateur user");
-
-		List<Utilisateur> listeUtilisateur=(List<Utilisateur>)query.getResultList();
-		return listeUtilisateur;
-	}
 
 
-=======
 	public List<Utilisateur> getAllUsers(){
 		
 		Query query=em.createQuery("select user from Utilisateur user");
 		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
 	}
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
+
 	/*
 	 * UsersWaitingActivation()
 	 */
@@ -284,31 +216,7 @@ public class UtilisateurDAO {
 		lusers = q.getResultList();
 		return lusers;
 	}
-	public void addReportAbuser (Utilisateur user) {
-		
-		user.setReportAbuser(user.getReportAbuser()+1);
-		tx.begin();
-		em.merge(user);
-		tx.commit();
-		
-	}
-	
-	// Created by SY 25.08.2017 : Check is this user is an abuser 
-	// condition is more than 10 times reported
-	
-	public boolean checkIsAbuser (Utilisateur user) {
-		
-		boolean isAbuser = false; 
-		
-		if (user.getReportAbuser() > 10) {
-			isAbuser = true; 
-		}
-		
-		return isAbuser;
-	}
-}
-<<<<<<< HEAD
 
-=======
->>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
+}
+
 
