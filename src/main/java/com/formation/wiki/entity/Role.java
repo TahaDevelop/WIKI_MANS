@@ -7,10 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
+@NamedQueries({
+	@NamedQuery(name="Role.findByName",query="SELECT r FROM Role r WHERE r.name=:name")
+})
 public class Role implements Serializable{
 	
 	/**
@@ -27,11 +32,16 @@ public class Role implements Serializable{
 	@Column(name="DESCRIPTION")
 	private String description;
 
+	/*
+	 * Constructeurs
+	 */
 	public Role() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	/*
+	 * Getters et Setters
+	 */
 	public Integer getId() {
 		return id;
 	}
@@ -55,7 +65,4 @@ public class Role implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-
 }

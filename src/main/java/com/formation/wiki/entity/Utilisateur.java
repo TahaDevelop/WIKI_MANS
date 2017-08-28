@@ -17,7 +17,6 @@ import javax.persistence.OneToOne;
 
 
 @Entity
-<<<<<<< HEAD
 
 /** Autheur : Sahobi
  *  Methodes: Utilisateur getById et getBylogin pour recuperer l'utilisateur
@@ -27,12 +26,8 @@ import javax.persistence.OneToOne;
 	@NamedQuery(name="Utilisateur.findByLogin",query="SELECT u FROM Utilisateur u WHERE u.login=:login"),
 	@NamedQuery(name="Utilisateur.getById",query="SELECT u FROM Utilisateur u WHERE  u.idUser=:id"),
 	@NamedQuery(name="Utilisateur.getByLogin",query="SELECT u FROM Utilisateur u WHERE  u.login=:login"),
-=======
-@NamedQueries({
-	@NamedQuery(name="Utilisateur.findById",query="SELECT u FROM Utilisateur u WHERE u.idUser= :id"),
-	@NamedQuery(name="Utilisateur.findByLogin",query="SELECT u FROM Utilisateur u WHERE u.login= :login"),
-	@NamedQuery(name="Utilisateur.findNotActivated",query="SELECT u FROM Utilisateur u WHERE u.activer= false")
->>>>>>> 806791240ec046dbb4e6819fc6c0ffbbcda06d40
+	@NamedQuery(name="Utilisateur.findNotActivated",query="SELECT u FROM Utilisateur u WHERE u.attenteValidation= true"),
+	@NamedQuery(name="Utilisateur.findBloqued",query="SELECT u FROM Utilisateur u WHERE u.activer= false AND u.attenteValidation=false")
 })
 public class Utilisateur implements Serializable {
 
@@ -51,6 +46,7 @@ public class Utilisateur implements Serializable {
 	private String tel;
 	
 	private Boolean activer;
+	private Boolean attenteValidation;
 	//Mapping entre Utilisateur <--> Article
 	@OneToMany(fetch=FetchType.LAZY)
 	private List<Article> articles;
@@ -61,55 +57,10 @@ public class Utilisateur implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	private Role role;
 	
+	
 	public Utilisateur() {
 	}
 	
-	public Boolean getActiver() {
-		return activer;
-	}
-
-
-
-	public void setActiver(Boolean activer) {
-		this.activer = activer;
-	}
-
-
-
-	public List<Article> getArticles() {
-		return articles;
-	}
-
-
-
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
-	}
-
-
-
-	public List<Commentaire> getCommentaires() {
-		return commentaires;
-	}
-
-
-
-	public void setCommentaires(List<Commentaire> commentaires) {
-		this.commentaires = commentaires;
-	}
-
-
-
-	public Role getRole() {
-		return role;
-	}
-
-
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
 	public Utilisateur(int idUser, String login, String password, String nom, String prenom, String email, String tel) {
 		super();
 		this.idUser = idUser;
@@ -119,6 +70,8 @@ public class Utilisateur implements Serializable {
 		this.prenom = prenom;
 		this.email = email;
 		this.tel = tel;
+		this.activer = false;
+		this.attenteValidation = true;
 	}
 
 	public int getIdUser() {
@@ -175,6 +128,45 @@ public class Utilisateur implements Serializable {
 
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+	public Boolean getActiver() {
+		return activer;
+	}
+
+	public void setActiver(Boolean activer) {
+		this.activer = activer;
+	}
+
+	public Boolean getAttenteValidation() {
+		return attenteValidation;
+	}
+
+	public void setAttenteValidation(Boolean attenteValidation) {
+		this.attenteValidation = attenteValidation;
+	}
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
+
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@Override

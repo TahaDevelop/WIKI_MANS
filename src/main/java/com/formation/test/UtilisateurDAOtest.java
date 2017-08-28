@@ -16,8 +16,8 @@ public class UtilisateurDAOtest {
 	
 
 	private Utilisateur testU;
-	Role testRole;
-	String role_name;
+	private Role testRole;
+	private String role_name;
 	
 	@Before
 	public void executeBeforeTest() {
@@ -47,6 +47,14 @@ public class UtilisateurDAOtest {
 		
 	}
 	
+	@Test
+	/*
+	 * UsersWaitingActivationTest()
+	 * JP Alonso
+	 */
+	public void UsersWaitingActivationTest() {
+		
+	}
 }
 
 

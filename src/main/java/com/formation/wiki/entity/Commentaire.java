@@ -26,7 +26,21 @@ public class Commentaire implements Serializable {
 	
 	@OneToOne
 	private Article article;
+	
+	@OneToOne
+	private Utilisateur user;
 
+	/*
+	 * Constructeurs
+	 */
+	public Commentaire() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/* 
+	 * Getters et Setters
+	 */
 	public Integer getId() {
 		return id;
 	}
@@ -59,9 +73,12 @@ public class Commentaire implements Serializable {
 		this.article = article;
 	}
 
-	public Commentaire() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
 	}
 
 }

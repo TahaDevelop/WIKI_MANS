@@ -1,13 +1,8 @@
 package com.formation.wiki.dao;
 
-<<<<<<< HEAD
-public class CommentaireDAO {
 
-}
-=======
-import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,7 +25,6 @@ public class CommentaireDAO {
 		EntityManagerFactory emf=Persistence.createEntityManagerFactory("PU_WIKI");
 		em = emf.createEntityManager();
 		tx=em.getTransaction();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void createComment(Commentaire comment,Article article,Utilisateur user){
@@ -76,12 +70,33 @@ public class CommentaireDAO {
 //		List<Commentaire> listeCommentaires=query.getResultList();
 //		return listeCommentaires ;
 	}
+	
+	/*
+	 * nbCommentPeriod()
+	 * JP Alonso
+	 */
+	public int nbCommentPeriod (Date date_deb, Date date_fin) {
+		int nbComment = 0;
+		
+		Query query = em.createQuery("select count(*) from Commentaire c WHERE commentDate>=:dateDeb AND commentDate <= :dateFin");
+		query.setParameter("dateDeb", date_deb);
+		query.setParameter("dateFin", date_fin);
+		nbComment= (Integer)query.getSingleResult();		
+		return nbComment;
+		
+	}
+	
+	/*
+	 * nbCommentArticle()
+	 * JP Alonso
+	 */
+	public int nbCommentArticle (Article article) {
+		int nbComment = 0;
+		
+		Query query = em.createQuery("select count(*) from Commentaire c WHERE article=:article");
+		query.setParameter("article", article);
+		nbComment= (Integer)query.getSingleResult();		
+		return nbComment;
+		
+	}
 }
-
-
-
-
-
-
-
->>>>>>> 806791240ec046dbb4e6819fc6c0ffbbcda06d40
