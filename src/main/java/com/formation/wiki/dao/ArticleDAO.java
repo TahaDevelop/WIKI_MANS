@@ -100,11 +100,12 @@ public class ArticleDAO {
 
 	// --------------------------------gelAllArticle pr un auteur
 	@SuppressWarnings("unchecked")
-	public List<Article> getAllArticleByAuthor(String user) {
-		Query q = em.createQuery("SELECT a FROM Article a WHERE a.user= :user");
-		q.setParameter("user", user);
-		List<Article> listArticles = (List<Article>) q.getResultList();
-		return listArticles;
+	public List<Article> getAllArticleByAuthor(String login) {
+		Query q = em.createQuery("SELECT a FROM Article a, Utilisateur u WHERE u.login= :login AND u.idUser=a.user");
+
+		q.setParameter("login", login);
+		List<Article> articlesByAuthor = (List<Article>) q.getResultList();
+		return articlesByAuthor;
 	}
 	//
 
@@ -179,14 +180,14 @@ public class ArticleDAO {
 			Map<Integer, Long> hm = new HashMap<Integer, Long>();
 			for (Object ligneAsObject : listMonth) {
 
-				// ligne correspond � une des lignes du r�sultat
+				// ligne correspond à une des lignes du résultat
 				Object[] ligne = (Object[]) ligneAsObject;
 				hm.put((Integer) ligne[0], (Long) ligne[1]);
 			}
 			return hm;
 
 		}
-	//-------nombre d'articles par catï¿½gorie
+	//-------nombre d'articles par catÃ¯Â¿Â½gorie
 		@SuppressWarnings("unchecked")
 		public Map<String, Long> getAllArticlebyCatg() {
 			Query q = em.createQuery("SELECT a.categorie, count(a.id) as number FROM Article a GROUP BY a.categorie");
