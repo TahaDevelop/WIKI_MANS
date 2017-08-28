@@ -56,6 +56,7 @@ public class UtilisateurDAOtest {
 	@Test
 	public void creationUsertest() {
 
+		// une seule fois ça  marche cet test car login est unique
 		testU.setLogin("testUT");
 		testU.setPassword("1234");
 		testU.setNom("testUT");
