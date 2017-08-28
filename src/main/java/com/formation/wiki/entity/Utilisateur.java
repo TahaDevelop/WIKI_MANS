@@ -25,8 +25,6 @@ import javax.persistence.OneToOne;
 @NamedQueries({
 	@NamedQuery(name="Utilisateur.findById",query="SELECT u FROM Utilisateur u WHERE u.idUser=:id"),
 	@NamedQuery(name="Utilisateur.findByLogin",query="SELECT u FROM Utilisateur u WHERE u.login=:login"),
-	@NamedQuery(name="Utilisateur.getById",query="SELECT u FROM Utilisateur u WHERE  u.idUser=:id"),
-	@NamedQuery(name="Utilisateur.getByLogin",query="SELECT u FROM Utilisateur u WHERE  u.login=:login"),
 	@NamedQuery(name="Utilisateur.findNotActivated",query="SELECT u FROM Utilisateur u WHERE u.activer= false")
 
 })

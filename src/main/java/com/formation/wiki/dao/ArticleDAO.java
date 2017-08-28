@@ -1,5 +1,6 @@
 package com.formation.wiki.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,20 +26,31 @@ public class ArticleDAO {
 	}
 
 	// Methode d'ajout d'un article
-	public void addArt(Article id) {
+	public void addArt(Article article) {
 		tx.begin();
-		em.persist(id);
+		article.setPublishDate(new Date());
+		em.persist(article);
 		tx.commit();
 	}
-
+//methode pour set un statut lors de la creation d'un article
+	public Statut addNewStatutWithId(){
+	Statut st=new Statut();
+	st.setPublished(false);
+	st.setWaitingforvalidation(true);
+	st.setReportedasabused(false);
+	tx.begin();
+	em.persist(st);
+	tx.commit();
+	return st;
+}
 	// Methode pour supprimer d'un article
-	public void suppArt(Article id) {
+	public void suppArt(Article article) {
 		tx.begin();
-		em.remove(id);
+		em.remove(article);
 		tx.commit();
 	}
 
-	// --------------------------------article approuvé/désaprouvé
+	// --------------------------------article approuve/desaprouve
 	public void setPublishArticle(Article article) {
 		Statut st = article.getStatut();
 
@@ -80,7 +92,7 @@ public class ArticleDAO {
 	// --------------------------------gelAllArticle
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticle() {
-		Query q = em.createQuery("SELECT a FROM article a");
+		Query q = em.createQuery("SELECT a FROM Article a");
 
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
@@ -99,7 +111,7 @@ public class ArticleDAO {
 	/// partie Abusers de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
-	// --------------------------------article approuvé/désaprouvé pour un
+	// --------------------------------article approuve/desaprouve pour un
 	/// report
 	public void setReportArticle(Article article) {
 		Statut st = article.getStatut();
@@ -127,7 +139,7 @@ public class ArticleDAO {
 	// -----------------------Afficher articles avec statut reportedasabused
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleReportedasabused() {
-		Query q = em.createQuery("SELECT a FROM Article a, Statut s WHERE a.statut=s.id and s.reportedasabused= true");
+		Query q = em.createQuery("SELECT a FROM Article a WHERE a.statut.reportedasabused= true");
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
@@ -147,52 +159,44 @@ public class ArticleDAO {
 	}
 
 	// ********************************** Article du mois, LIUDMILA **********TEST OK********
-	@SuppressWarnings("unchecked")
-	public String articleDuMois() {
-		String articleDuMois=null;
-		String query = "SELECT art.commentaires.size, art.title FROM Article art ORDER BY art.commentaires.size asc";
-		Query q = em.createQuery(query);
-		List<Object[]> listMonth = q.getResultList();
-		Map<Integer, String> hm = new HashMap<Integer, String>();
-		for (Object ligneAsObject : listMonth) {
+		public int articleDuMois() {
+			String query = "SELECT art.id FROM Article art ORDER BY art.commentaires.size asc";
+			Query q = em.createQuery(query);
+			return (Integer) q.getResultList().get(0);
 
-			// ligne correspond à une des lignes du résultat
-			System.out.println();
-			
-			Object[] ligne = (Object[]) ligneAsObject;
-			
-			hm.put((Integer) ligne[0], (String) ligne[1]);
-			
-//			for (Map.Entry mapentry : hm.entrySet()) {
-//		           System.out.println("clé: "+mapentry.getKey() 
-//		                              + " | valeur: " + mapentry.getValue());
-//		        }
-			articleDuMois=(String) ligne[1];
 		}
-		System.out.println(articleDuMois);
-		return articleDuMois;
-
-	}
 
 	/// partie Statistiques de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
-	@SuppressWarnings("unchecked")
-	public Map<String, Integer> getArticlebyMonth() {
+		@SuppressWarnings("unchecked")
+		public Map<Integer, Long> getArticlebyMonth() {
 
-		String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
-		Query query = em.createQuery(script);
-		List<Object[]> listMonth = query.getResultList();
-		Map<String, Integer> hm = new HashMap<String, Integer>();
-		for (Object ligneAsObject : listMonth) {
+			String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
+			Query query = em.createQuery(script);
+			List<Object[]> listMonth = query.getResultList();
+			Map<Integer, Long> hm = new HashMap<Integer, Long>();
+			for (Object ligneAsObject : listMonth) {
 
-			// ligne correspond à une des lignes du résultat
-			Object[] ligne = (Object[]) ligneAsObject;
-			hm.put((String) ligne[0], (Integer) ligne[1]);
+				// ligne correspond à une des lignes du résultat
+				Object[] ligne = (Object[]) ligneAsObject;
+				hm.put((Integer) ligne[0], (Long) ligne[1]);
+			}
+			return hm;
+
 		}
-		return hm;
-
-	}
-
+	//-------nombre d'articles par catÃ¯Â¿Â½gorie
+		@SuppressWarnings("unchecked")
+		public Map<String, Long> getAllArticlebyCatg() {
+			Query q = em.createQuery("SELECT a.categorie, count(a.id) as number FROM Article a GROUP BY a.categorie");
+			List<Object[]> listCatg = q.getResultList();
+			System.out.println(listCatg.size());
+			Map<String, Long> hm=new HashMap<String, Long>();
+			for (Object ligneasObject : listCatg){
+				Object[] ligne=(Object[]) ligneasObject;
+				hm.put((String) ligne[0] , (Long) ligne[1]);
+			}
+			return hm;
+		}
 }
