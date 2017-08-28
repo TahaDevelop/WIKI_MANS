@@ -30,7 +30,7 @@ public class ArticleDAO {
 		em.persist(article);
 		tx.commit();
 	}
-//methode pour set un statut lors de la création d'un article
+//methode pour set un statut lors de la creation d'un article
 	public Statut addNewStatutWithId(){
 	Statut st=new Statut();
 	st.setPublished(false);
@@ -48,7 +48,7 @@ public class ArticleDAO {
 		tx.commit();
 	}
 
-	// --------------------------------article approuvé/désaprouvé
+	// --------------------------------article approuve/desaprouve
 	public void setPublishArticle(Article article) {
 		Statut st = article.getStatut();
 
@@ -109,7 +109,7 @@ public class ArticleDAO {
 	/// partie Abusers de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
-	// --------------------------------article approuvé/désaprouvé pour un
+	// --------------------------------article approuve/desaprouve pour un
 	/// report
 	public void setReportArticle(Article article) {
 		Statut st = article.getStatut();
@@ -166,7 +166,7 @@ public class ArticleDAO {
 		Map<Integer, String> hm = new HashMap<Integer, String>();
 		for (Object ligneAsObject : listMonth) {
 
-			// ligne correspond à une des lignes du résultat
+			// ligne correspond ï¿½ une des lignes du rï¿½sultat
 			System.out.println();
 			
 			Object[] ligne = (Object[]) ligneAsObject;
@@ -174,7 +174,7 @@ public class ArticleDAO {
 			hm.put((Integer) ligne[0], (String) ligne[1]);
 			
 //			for (Map.Entry mapentry : hm.entrySet()) {
-//		           System.out.println("clé: "+mapentry.getKey() 
+//		           System.out.println("clï¿½: "+mapentry.getKey() 
 //		                              + " | valeur: " + mapentry.getValue());
 //		        }
 			articleDuMois=(String) ligne[1];
@@ -197,14 +197,14 @@ public class ArticleDAO {
 		Map<String, Integer> hm = new HashMap<String, Integer>();
 		for (Object ligneAsObject : listMonth) {
 
-			// ligne correspond à une des lignes du résultat
+			// ligne correspond ï¿½ une des lignes du rï¿½sultat
 			Object[] ligne = (Object[]) ligneAsObject;
 			hm.put((String) ligne[0], (Integer) ligne[1]);
 		}
 		return hm;
 
 	}
-	//-------nombre d'articles par catégorie
+	//-------nombre d'articles par catï¿½gorie
 		@SuppressWarnings("unchecked")
 		public List<Article> getAllArticlebyCatg() {
 			Query q = em.createQuery("SELECT categorie, count(*) as number FROM Article a GROUP BY categorie");

@@ -23,7 +23,7 @@ public class ConnexionManager {
 		} catch (ClassNotFoundException e) {
 			System.out.println("Erreur lors du chargement du DRIVER");
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la connexio à la BDD");
+			System.out.println("Erreur lors de la connexio a la BDD");
 		}
 		return con;
 	}
