@@ -170,6 +170,30 @@ public class CommentaireDAO {
 //		List<Commentaire> listeCommentaires=query.getResultList();
 //		return listeCommentaires ;
 	}
+<<<<<<< HEAD
+	
+	
+
+	// created by SY
+		public List<Commentaire> getByPeriod(Date fromDate, Date toDate) {
+
+			Query query=em.createQuery("select c from Commentaire c WHERE c.commentDate BETWEEN :fromDate AND :toDate ORDER BY c.commentDate asc");
+			
+			query.setParameter("fromDate", fromDate);
+			query.setParameter("toDate", toDate);
+			
+			List<Commentaire> listeCommentaires=query.getResultList();
+			
+//			for(Commentaire commentaire : listeCommentaires){
+//			
+//				System.out.println(commentaire.getCommentDate());
+//			} 
+			
+			return listeCommentaires;
+			
+		}
+=======
+>>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
 }
 
 

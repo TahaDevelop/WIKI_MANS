@@ -44,15 +44,14 @@ public class UtilisateurDAO {
 	/*
 	 * addUser(user) : ajout d'un utilisateur
 	 */
+
+	// modified by SY : ajoutez Role dois par creationUser 
+	
 	public void addUser(Utilisateur user) {
-		Role role=new Role();
-		role.setName("ADMIN");
-		user.setRole(role);
+		
 		tx.begin();
 		em.persist(user);
-		// Suppression d'un objet em.remove(entity);
-		// Mise ï¿½ jour d'un objet em.merge(entity);
-		// Rï¿½cupï¿½ration d'un objet em.find(entityClass, primaryKey);
+
 		tx.commit();
 	}
 
@@ -81,10 +80,13 @@ public class UtilisateurDAO {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	
+=======
+>>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
 	/** Autheur: Sahobi
 	 * methode getUserById
 	 */
@@ -117,7 +119,8 @@ public class UtilisateurDAO {
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
 			   
-	public String AuthentificationUser(Utilisateur user) {
+	public String authentificationUser(Utilisateur user) {
+
 	
 		String role_user = null;
 		
@@ -129,8 +132,11 @@ public class UtilisateurDAO {
 		
 	}
 	
-	// Created by SY : Create User 
-	
+
+	// Created by SY 24.08.2017 : Create User 
+	// typeUser : "ADMIN" ou "MEMBRE"
+
+
 	public void creationUser(Utilisateur user, String typeUser) {
 
 		Role role=new Role();
@@ -140,7 +146,7 @@ public class UtilisateurDAO {
 		
 	}
 	
-	// Created by SY : Activer User
+
 	
 	public void activerUser(Utilisateur user) {
 		user.setActiver(true);
@@ -149,7 +155,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-	// Created by SY : Deactiver User
+
 	
 	public void deactiverUser(Utilisateur user) {
 		user.setActiver(false);
@@ -159,11 +165,40 @@ public class UtilisateurDAO {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	//COMMENCE ICI
 	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
+=======
+	
+	// Created by SY 25.08.2017 : Increase count by 1 for this abuser
+	
+	public void addReportAbuser (Utilisateur user) {
+		
+		user.setReportAbuser(user.getReportAbuser()+1);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+		
+	}
+	
+	// Created by SY 25.08.2017 : Check is this user is an abuser 
+	// condition is more than 10 times reported
+	
+	public boolean checkIsAbuser (Utilisateur user) {
+		
+		boolean isAbuser = false; 
+		
+		if (user.getReportAbuser() > 10) {
+			isAbuser = true; 
+		}
+		
+		return isAbuser;
+	}
+
+>>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
 	
 		tx.begin();
@@ -181,6 +216,8 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
+
+
 	public List<Utilisateur> getAllUsers(){
 		
 		Query query=em.createQuery("select user from Utilisateur user");
@@ -188,9 +225,13 @@ public class UtilisateurDAO {
 		return listeUtilisateur;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
+=======
+
+>>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
 	/*
 	 * UsersWaitingActivation()
 	 * auteur : JP Alonso
@@ -202,6 +243,7 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = (List<Utilisateur>) q.getResultList();
 		return lusers;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	}
@@ -246,5 +288,10 @@ public class UtilisateurDAO {
 		return isAbuser;
 	}
 >>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
+=======
+	}
+
+>>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
 }
+
 
