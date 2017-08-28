@@ -1,10 +1,6 @@
 package com.formation.wiki.dao;
 
-<<<<<<< HEAD
-public class CommentaireDAO {
 
-}
-=======
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
@@ -33,6 +29,7 @@ public class CommentaireDAO {
 		// TODO Auto-generated constructor stub
 	}
 	
+	//Méthode "Créer Commentaire" : testée et validée par Mary OK
 	public void createComment(Commentaire comment,Article article,Utilisateur user){
 		
 		tx.begin();
@@ -42,6 +39,7 @@ public class CommentaireDAO {
 		tx.commit();
 	}
 	
+	//Méthode "Modifier Commentaire" : testée et validée par Mary NOK
 	public void modifyComment(Commentaire comment,Article article,Utilisateur user){
 		
 		tx.begin();
@@ -51,6 +49,7 @@ public class CommentaireDAO {
 		tx.commit();
 	}
 	
+	//Méthode "Supprimer Commentaire" : testée et validée par Mary NOK
 	public void deleteComment(Commentaire comment) {
 		
 		tx.begin();
@@ -58,6 +57,7 @@ public class CommentaireDAO {
 		tx.commit();
 	}
 	
+	//Méthode "GetAll Commentaire" : testée et validée par Mary
 	@SuppressWarnings("unchecked")
 	public List<Commentaire> getAllComments(){
 		
@@ -66,6 +66,7 @@ public class CommentaireDAO {
 		return listeCommentaires;
 	}
 	
+	//Méthode "GetById Commentaire" : testée et validée par Mary
 	public Commentaire getCommentById(int id) {
 
 		Query query = em.createQuery("select commentaire from Commentaire commentaire WHERE Id=:id");
@@ -79,9 +80,3 @@ public class CommentaireDAO {
 }
 
 
-
-
-
-
-
->>>>>>> 806791240ec046dbb4e6819fc6c0ffbbcda06d40
