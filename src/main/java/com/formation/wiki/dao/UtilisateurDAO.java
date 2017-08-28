@@ -126,7 +126,7 @@ public class UtilisateurDAO {
 	
 	// Created by SY : Create User 
 	
-	public void CreationUser(Utilisateur user, String typeUser) {
+	public void creationUser(Utilisateur user, String typeUser) {
 
 		Role role=new Role();
 		role.setName(typeUser);
@@ -188,6 +188,28 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = q.getResultList();
 		return lusers;
+	}
+	public void addReportAbuser (Utilisateur user) {
+		
+		user.setReportAbuser(user.getReportAbuser()+1);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+		
+	}
+	
+	// Created by SY 25.08.2017 : Check is this user is an abuser 
+	// condition is more than 10 times reported
+	
+	public boolean checkIsAbuser (Utilisateur user) {
+		
+		boolean isAbuser = false; 
+		
+		if (user.getReportAbuser() > 10) {
+			isAbuser = true; 
+		}
+		
+		return isAbuser;
 	}
 }
 
