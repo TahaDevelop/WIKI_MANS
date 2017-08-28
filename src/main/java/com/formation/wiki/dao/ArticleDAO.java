@@ -1,5 +1,6 @@
 package com.formation.wiki.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class ArticleDAO {
 	// Methode d'ajout d'un article
 	public void addArt(Article article) {
 		tx.begin();
+		article.setPublishDate(new Date());
 		em.persist(article);
 		tx.commit();
 	}
@@ -168,22 +170,22 @@ public class ArticleDAO {
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
-	@SuppressWarnings("unchecked")
-	public Map<String, Long> getArticlebyMonth() {
+		@SuppressWarnings("unchecked")
+		public Map<Integer, Long> getArticlebyMonth() {
 
-		String script = "SELECT Month(a.publishDate) AS Mois, count(a.id) AS nb FROM Article a GROUP BY Month(a.publishDate)";
-		Query query = em.createQuery(script);
-		List<Object[]> listMonth = query.getResultList();
-		Map<String, Long> hm = new HashMap<String, Long>();
-		for (Object ligneAsObject : listMonth) {
+			String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
+			Query query = em.createQuery(script);
+			List<Object[]> listMonth = query.getResultList();
+			Map<Integer, Long> hm = new HashMap<Integer, Long>();
+			for (Object ligneAsObject : listMonth) {
 
-			// ligne correspond ï¿½ une des lignes du rï¿½sultat
-			Object[] ligne = (Object[]) ligneAsObject;
-			hm.put((String) ligne[0], (Long) ligne[1]);
+				// ligne correspond � une des lignes du r�sultat
+				Object[] ligne = (Object[]) ligneAsObject;
+				hm.put((Integer) ligne[0], (Long) ligne[1]);
+			}
+			return hm;
+
 		}
-		return hm;
-
-	}
 	//-------nombre d'articles par catï¿½gorie
 		@SuppressWarnings("unchecked")
 		public Map<String, Long> getAllArticlebyCatg() {
