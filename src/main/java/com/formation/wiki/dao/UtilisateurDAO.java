@@ -42,10 +42,10 @@ public class UtilisateurDAO {
 	/*
 	 * addUser(user) : ajout d'un utilisateur
 	 */
+	// modified by SY : ajoutez Role dois par creationUser 
+	
 	public void addUser(Utilisateur user) {
-		Role role=new Role();
-		role.setName("ADMIN");
-		user.setRole(role);
+		
 		tx.begin();
 		em.persist(user);
 		// Suppression d'un objet em.remove(entity);
@@ -79,11 +79,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-<<<<<<< HEAD
-	//	Created by SY 24.08.2017 : Authentification to create User 
-	//	If the user is deactivated else return null
-=======
-	
+
 	/** Autheur: Sahobi
 	 * methode getUserById
 	 */
@@ -111,7 +107,6 @@ public class UtilisateurDAO {
 	
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
->>>>>>> 9ce3f3fc00bc1e248ac04019fba868ed7528f291
 			   
 	public String authentificationUser(Utilisateur user) {
 	
@@ -126,6 +121,7 @@ public class UtilisateurDAO {
 	}
 	
 	// Created by SY 24.08.2017 : Create User 
+	// typeUser : "ADMIN" ou "MEMBRE"
 	
 	public void creationUser(Utilisateur user, String typeUser) {
 
@@ -180,12 +176,6 @@ public class UtilisateurDAO {
 	}
 
 
-<<<<<<< HEAD
-	//COMMENCE ICI
-	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
-=======
-
->>>>>>> 9ce3f3fc00bc1e248ac04019fba868ed7528f291
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
 	
 		tx.begin();
@@ -207,17 +197,12 @@ public class UtilisateurDAO {
 	public List<Utilisateur> getAllUsers(){
 		
 		Query query=em.createQuery("select user from Utilisateur user");
-<<<<<<< HEAD
-		List<Utilisateur> listeUtilisateur=query.getResultList();
-		return listeUtilisateur;
-	}
-	
-=======
+
 		List<Utilisateur> listeUtilisateur=(List<Utilisateur>)query.getResultList();
 		return listeUtilisateur;
 	}
 
->>>>>>> 9ce3f3fc00bc1e248ac04019fba868ed7528f291
+
 	/*
 	 * UsersWaitingActivation()
 	 */
