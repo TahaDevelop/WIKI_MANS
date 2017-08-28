@@ -49,8 +49,8 @@ public class UtilisateurDAO {
 		tx.begin();
 		em.persist(user);
 		// Suppression d'un objet em.remove(entity);
-		// Mise � jour d'un objet em.merge(entity);
-		// R�cup�ration d'un objet em.find(entityClass, primaryKey);
+		// Mise ï¿½ jour d'un objet em.merge(entity);
+		// Rï¿½cupï¿½ration d'un objet em.find(entityClass, primaryKey);
 		tx.commit();
 	}
 
@@ -61,6 +61,7 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findById");
 		q.setParameter("id", id);
 		Utilisateur user = (Utilisateur) q.getSingleResult();
+		System.out.println(user);
 		return user;
 	}
 
@@ -77,7 +78,10 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
-	
+
+	//	Created by SY 24.08.2017 : Authentification to create User 
+	//	If the user is deactivated else return null
+
 	
 	/** Autheur: Sahobi
 	 * methode getUserById
@@ -106,8 +110,9 @@ public class UtilisateurDAO {
 	
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
+
 			   
-	public String AuthentificationUser(Utilisateur user) {
+	public String authentificationUser(Utilisateur user) {
 	
 		String role_user = null;
 		
@@ -119,9 +124,9 @@ public class UtilisateurDAO {
 		
 	}
 	
-	// Created by SY : Create User 
+	// Created by SY 24.08.2017 : Create User 
 	
-	public void CreationUser(Utilisateur user, String typeUser) {
+	public void creationUser(Utilisateur user, String typeUser) {
 
 		Role role=new Role();
 		role.setName(typeUser);
@@ -130,7 +135,7 @@ public class UtilisateurDAO {
 		
 	}
 	
-	// Created by SY : Activer User
+	// Created by SY 24.08.2017 : Activer User
 	
 	public void activerUser(Utilisateur user) {
 		user.setActiver(true);
@@ -139,7 +144,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-	// Created by SY : Deactiver User
+	// Created by SY 24.08.2017 : Deactiver User
 	
 	public void deactiverUser(Utilisateur user) {
 		user.setActiver(false);
@@ -147,7 +152,36 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
+	
+	// Created by SY 25.08.2017 : Increase count by 1 for this abuser
+	
+	public void addReportAbuser (Utilisateur user) {
+		
+		user.setReportAbuser(user.getReportAbuser()+1);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+		
+	}
+	
+	// Created by SY 25.08.2017 : Check is this user is an abuser 
+	// condition is more than 10 times reported
+	
+	public boolean checkIsAbuser (Utilisateur user) {
+		
+		boolean isAbuser = false; 
+		
+		if (user.getReportAbuser() > 10) {
+			isAbuser = true; 
+		}
+		
+		return isAbuser;
+	}
 
+
+
+	//COMMENCE ICI
+	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
 
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
 	
@@ -170,8 +204,10 @@ public class UtilisateurDAO {
 	public List<Utilisateur> getAllUsers(){
 		
 		Query query=em.createQuery("select user from Utilisateur user");
-		List<Utilisateur> listeUtilisateur=(List<Utilisateur>)query.getResultList();
+
+		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
+
 	}
 
 	/*
