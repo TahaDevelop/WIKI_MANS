@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.formation.wiki.entity.Commentaire;
 import com.formation.wiki.entity.Role;
 import com.formation.wiki.entity.Utilisateur;
 
@@ -78,6 +81,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
+<<<<<<< HEAD
 	
 	/** Autheur: Sahobi
 	 * methode getUserById
@@ -104,6 +108,7 @@ public class UtilisateurDAO {
 	}
 
 	
+=======
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
 			   
@@ -148,7 +153,9 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 
-
+<<<<<<< HEAD
+	//COMMENCE ICI
+	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
 	
 		tx.begin();
@@ -166,14 +173,12 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Utilisateur> getAllUsers(){
 		
 		Query query=em.createQuery("select user from Utilisateur user");
-		List<Utilisateur> listeUtilisateur=(List<Utilisateur>)query.getResultList();
+		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
-	}
-
+=======
 	/*
 	 * UsersWaitingActivation()
 	 */
@@ -183,6 +188,8 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = q.getResultList();
 		return lusers;
+>>>>>>> ce04a12d8aa321d13811c55879ff1b04e63480dd
 	}
+>>>>>>> 806791240ec046dbb4e6819fc6c0ffbbcda06d40
 }
 

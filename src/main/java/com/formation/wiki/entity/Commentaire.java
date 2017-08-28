@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,18 +26,6 @@ public class Commentaire implements Serializable {
 	
 	@OneToOne
 	private Article article;
-	
-	@ManyToOne
-	private Utilisateur user;
-	
-	
-	public Utilisateur getUser() {
-		return user;
-	}
-
-	public void setUser(Utilisateur user) {
-		this.user = user;
-	}
 
 	public Integer getId() {
 		return id;
@@ -78,4 +65,3 @@ public class Commentaire implements Serializable {
 	}
 
 }
-
