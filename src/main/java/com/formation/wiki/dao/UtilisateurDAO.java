@@ -165,8 +165,12 @@ public class UtilisateurDAO {
 =======
 	// Created by SY : Create User 
 	
+<<<<<<< HEAD
 	public void CreationUser(Utilisateur user, String typeUser) {
 >>>>>>> f8ba79caaa2a78bfb9468dbab695d82f4b7c771c
+=======
+	public void creationUser(Utilisateur user, String typeUser) {
+>>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
 
 		Role role=new Role();
 		role.setName(typeUser);
@@ -279,6 +283,28 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = q.getResultList();
 		return lusers;
+	}
+	public void addReportAbuser (Utilisateur user) {
+		
+		user.setReportAbuser(user.getReportAbuser()+1);
+		tx.begin();
+		em.merge(user);
+		tx.commit();
+		
+	}
+	
+	// Created by SY 25.08.2017 : Check is this user is an abuser 
+	// condition is more than 10 times reported
+	
+	public boolean checkIsAbuser (Utilisateur user) {
+		
+		boolean isAbuser = false; 
+		
+		if (user.getReportAbuser() > 10) {
+			isAbuser = true; 
+		}
+		
+		return isAbuser;
 	}
 }
 <<<<<<< HEAD
