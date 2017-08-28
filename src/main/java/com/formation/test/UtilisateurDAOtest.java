@@ -8,6 +8,7 @@ import java.util.concurrent.TimeoutException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 import org.junit.Before;
@@ -56,7 +57,7 @@ public class UtilisateurDAOtest {
 	@Test
 	public void creationUsertest() {
 
-		// une seule fois �a  marche cet test car login est unique
+		// une seule fois ça  marche cet test car login est unique
 		testU.setLogin("testUT");
 		testU.setPassword("1234");
 		testU.setNom("testUT");
@@ -120,5 +121,22 @@ public class UtilisateurDAOtest {
 		testU = testUDAO.findbyId(1);
 		assertTrue(testUDAO.checkIsAbuser(testU));
 	}
+	/**Autheur  : Sahobi
+	 * Objectif : verifier l'utilisateur à partir du Login="Sahobi"
+	 * */
+ 	@Test(expected= NoResultException.class)
+	public void getUserByLoginTest(){		
+ 		assertNotNull(testUDAO.getUserByLogin("Sahobi"));
+ 		assertNull(testUDAO.getUserByLogin("NON"));
+ 		
+	}
+ 	
+ 	/**Autheur  : Sahobi
+	 * Objectif : verifier l'utilisateur à partir d'un IdUser
+	 * */
+ 	@Test
+ 	public void getUserByIdTest(){
+ 		testUDAO.getUserById(1);
+ 	}
 
 }

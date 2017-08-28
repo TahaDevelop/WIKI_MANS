@@ -25,11 +25,9 @@ public class Commentaire implements Serializable {
 	
 	private String comment;
 	
-	@OneToOne
-	private Article article;
-	
 	@ManyToOne
 	private Utilisateur user;
+	
 	
 	
 	public Utilisateur getUser() {
@@ -39,6 +37,9 @@ public class Commentaire implements Serializable {
 	public void setUser(Utilisateur user) {
 		this.user = user;
 	}
+
+	@OneToOne
+	private Article article;
 
 	public Integer getId() {
 		return id;
@@ -78,4 +79,3 @@ public class Commentaire implements Serializable {
 	}
 
 }
-
