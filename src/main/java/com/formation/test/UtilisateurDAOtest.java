@@ -14,12 +14,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.formation.wiki.dao.UtilisateurDAO;
+import com.formation.wiki.dao.WikiEntityManager;
 import com.formation.wiki.entity.Role;
 import com.formation.wiki.entity.Utilisateur;
 
 public class UtilisateurDAOtest {
 
 	private Utilisateur testU;
+	private Utilisateur testUref;
 	private UtilisateurDAO testUDAO;
 	Role testRole;
 	String role_name;
@@ -28,36 +30,67 @@ public class UtilisateurDAOtest {
 	
 	@Before
 	public void executeBeforeTest() {
+		
 		role_name = null;
 		testU = new Utilisateur();
+		testUref = new Utilisateur();
+		testUDAO = new UtilisateurDAO();
 		testRole = new Role();
-		testRole.setName("ADMIN");
-		testU.setRole(testRole);
-
+		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU_WIKI");
 		em = emf.createEntityManager();
 		tx = em.getTransaction();
 	}
 
+	
 	@Test
 	public void authentificationUsertest() {
+		
+		testU = testUDAO.findbyId(2);
 		assertEquals(testU.getRole().getName(), "ADMIN");
+		
 	}
-
+	
+// besoin de method findbylogin pour utilisateur
+/*	
 	@Test
 	public void creationUsertest() {
-		assertNull(testU);
-	}
+		
+		
+		testU.setLogin("testUser");
+		testU.setPassword("1234");
+		testU.setNom("testUser");
+		testU.setPrenom("testuserprenom");
 
+		testUDAO.creationUser(testU, "MEMBRE");
+		
+//		testU2 = testUDAO.findbyLogin("testUser");
+//		assertEquals(testU.getLogin(), testU2.getLogin());
+		
+	}
+*/
+	
 	@Test
 	public void activerUsertest() {
 		
-		boolean user_active = false;
+		boolean acivateUser = true;
 		testU = testUDAO.findbyId(1);
-		user_active=testU.getActiver();
-		assertTrue(user_active);
-		System.out.println("user_active :"+user_active);
+		testU.setActiver(acivateUser);
 		
+		testUref = testUDAO.findbyId(1);
+		assertTrue(testUref.getActiver());
+	
+	}
+	
+	@Test
+	public void deactiverUsertest() {
+		
+		boolean acivateUser = false;
+		testU = testUDAO.findbyId(1);
+		testU.setActiver(false);
+		
+		testUref = testUDAO.findbyId(1);
+		assertFalse(testUref.getActiver());
 	}
 	
 	@Test
@@ -75,5 +108,10 @@ public class UtilisateurDAOtest {
 	
 	}
 	
+	@Test
+	public void checkIsAbusertest () {
+		testU = testUDAO.findbyId(1);
+		assertTrue(testUDAO.checkIsAbuser(testU));
+	}
 
 }
