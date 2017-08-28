@@ -5,13 +5,10 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.formation.wiki.entity.Commentaire;
 import com.formation.wiki.entity.Role;
 import com.formation.wiki.entity.Utilisateur;
 
@@ -82,8 +79,39 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
+<<<<<<< HEAD
 	//	Created by SY 24.08.2017 : Authentification to create User 
 	//	If the user is deactivated else return null
+=======
+	
+	/** Autheur: Sahobi
+	 * methode getUserById
+	 */
+	public Utilisateur getUserById(int id) {	
+		Utilisateur user = null;
+		Query q = em.createNamedQuery("Utilisateur.getById");
+		q.setParameter("id", id);
+		user = (Utilisateur) q.getSingleResult();
+		System.out.println("l'article dont l'id " + id + " est : " + user);
+		return user;
+	}
+	
+	/** Autheur: Sahobi
+	 *  methode getUserByLogin
+	 */
+	public Utilisateur getUserByLogin(String login) {	
+		Utilisateur user = null;
+		Query q = em.createNamedQuery("Utilisateur.getByLogin");
+		q.setParameter("login", login);
+		user = (Utilisateur) q.getSingleResult();
+		System.out.println("l'utilisateur  dont le login " + login + " est : " + user);
+		return user;
+	}
+
+	
+		//	Created by SY : Authentification to create User 
+		//	If the user is deactivated else return null
+>>>>>>> 9ce3f3fc00bc1e248ac04019fba868ed7528f291
 			   
 	public String authentificationUser(Utilisateur user) {
 	
@@ -152,8 +180,12 @@ public class UtilisateurDAO {
 	}
 
 
+<<<<<<< HEAD
 	//COMMENCE ICI
 	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
+=======
+
+>>>>>>> 9ce3f3fc00bc1e248ac04019fba868ed7528f291
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
 	
 		tx.begin();
@@ -171,13 +203,21 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Utilisateur> getAllUsers(){
 		
 		Query query=em.createQuery("select user from Utilisateur user");
+<<<<<<< HEAD
 		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
 	}
 	
+=======
+		List<Utilisateur> listeUtilisateur=(List<Utilisateur>)query.getResultList();
+		return listeUtilisateur;
+	}
+
+>>>>>>> 9ce3f3fc00bc1e248ac04019fba868ed7528f291
 	/*
 	 * UsersWaitingActivation()
 	 */

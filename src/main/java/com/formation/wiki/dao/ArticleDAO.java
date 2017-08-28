@@ -25,16 +25,26 @@ public class ArticleDAO {
 	}
 
 	// Methode d'ajout d'un article
-	public void addArt(Article id) {
+	public void addArt(Article article) {
 		tx.begin();
-		em.persist(id);
+		em.persist(article);
 		tx.commit();
 	}
-
+//methode pour set un statut lors de la création d'un article
+	public Statut addNewStatutWithId(){
+	Statut st=new Statut();
+	st.setPublished(false);
+	st.setWaitingforvalidation(true);
+	st.setReportedasabused(false);
+	tx.begin();
+	em.persist(st);
+	tx.commit();
+	return st;
+}
 	// Methode pour supprimer d'un article
-	public void suppArt(Article id) {
+	public void suppArt(Article article) {
 		tx.begin();
-		em.remove(id);
+		em.remove(article);
 		tx.commit();
 	}
 
@@ -99,7 +109,8 @@ public class ArticleDAO {
 	/// partie Abusers de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
-	// --------------------------------article approuvé/désaprouvé pour un report
+	// --------------------------------article approuvé/désaprouvé pour un
+	/// report
 	public void setReportArticle(Article article) {
 		Statut st = article.getStatut();
 
@@ -114,6 +125,7 @@ public class ArticleDAO {
 		tx.commit();
 
 	}
+
 	// ---------------------------get all article with reported status
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleReported() {
@@ -121,8 +133,8 @@ public class ArticleDAO {
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
-	
-	//-----------------------Afficher articles avec statut reportedasabused
+
+	// -----------------------Afficher articles avec statut reportedasabused
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleReportedasabused() {
 		Query q = em.createQuery("SELECT a FROM Article a, Statut s WHERE a.statut=s.id and s.reportedasabused= true");
@@ -130,41 +142,73 @@ public class ArticleDAO {
 		return listArticles;
 	}
 	
+	// ************************** GetArticle en attendre d`aprove, LIUDMILA ********TESTER OK*********
+	@SuppressWarnings("unchecked")
+	public List<Article> getArticleAttendre() {
+		String query = "SELECT art FROM Article art WHERE art.statut.waitingforvalidation =true";
+		Query q = em.createQuery(query);
+		List<Article> resultsAttendreAprove = q.getResultList();
+		System.out.println(resultsAttendreAprove.size());
+//		for(Article article : resultsAttendreAprove){
+//		
+//			System.out.println(article.getTitle());
+//		} 
+		return resultsAttendreAprove;
+	}
+
+	// ********************************** Article du mois, LIUDMILA **********TEST OK********
+	@SuppressWarnings("unchecked")
+	public String articleDuMois() {
+		String articleDuMois=null;
+		String query = "SELECT art.commentaires.size, art.title FROM Article art ORDER BY art.commentaires.size asc";
+		Query q = em.createQuery(query);
+		List<Object[]> listMonth = q.getResultList();
+		Map<Integer, String> hm = new HashMap<Integer, String>();
+		for (Object ligneAsObject : listMonth) {
+
+			// ligne correspond à une des lignes du résultat
+			System.out.println();
+			
+			Object[] ligne = (Object[]) ligneAsObject;
+			
+			hm.put((Integer) ligne[0], (String) ligne[1]);
+			
+//			for (Map.Entry mapentry : hm.entrySet()) {
+//		           System.out.println("clé: "+mapentry.getKey() 
+//		                              + " | valeur: " + mapentry.getValue());
+//		        }
+			articleDuMois=(String) ligne[1];
+		}
+		System.out.println(articleDuMois);
+		return articleDuMois;
+
+	}
 
 	/// partie Statistiques de notre
 	/// WIKI------------------------------------------------------------------------
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
+	@SuppressWarnings("unchecked")
+	public Map<String, Integer> getArticlebyMonth() {
 
-	@SuppressWarnings("unchecked")
-	public List<Article> getAllArticlebyMonth() {
-		Query q = em.createQuery("SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate);");
-		//verifier cette syntaxe type de retour incorrect
-		List<Article> listArticles = (List<Article>) q.getResultList();
-		return listArticles;
-	}
-	@SuppressWarnings("unchecked")
-	public Map<String,Integer> getArticlebyMonth() {
-	
-			String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
-			Query query = em.createQuery(script);
-			List<Object[]> listMonth = query.getResultList();
-			 Map<String,Integer> hm= new HashMap<String,Integer>();
-			 for (Object ligneAsObject : listMonth) {
-	
-			     // ligne correspond à une des lignes du résultat
-			    Object[] ligne = (Object[])ligneAsObject ;
-			    hm.put((String)ligne[0], (Integer)ligne[1] );
-			 }
-			return hm;
-		
+		String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
+		Query query = em.createQuery(script);
+		List<Object[]> listMonth = query.getResultList();
+		Map<String, Integer> hm = new HashMap<String, Integer>();
+		for (Object ligneAsObject : listMonth) {
+
+			// ligne correspond à une des lignes du résultat
+			Object[] ligne = (Object[]) ligneAsObject;
+			hm.put((String) ligne[0], (Integer) ligne[1]);
 		}
-	//-------nombre d'articles par catégorie
-	@SuppressWarnings("unchecked")
-	public List<Article> getAllArticlebyCatg() {
-		Query q = em.createQuery("SELECT categorie, count(*) as number FROM Article a GROUP BY categorie");
-		List<Article> listArticles = (List<Article>) q.getResultList();
-		return listArticles;
-	}
+		return hm;
 
+	}
+	//-------nombre d'articles par catégorie
+		@SuppressWarnings("unchecked")
+		public List<Article> getAllArticlebyCatg() {
+			Query q = em.createQuery("SELECT categorie, count(*) as number FROM Article a GROUP BY categorie");
+			List<Article> listArticles = (List<Article>) q.getResultList();
+			return listArticles;
+		}
 }
