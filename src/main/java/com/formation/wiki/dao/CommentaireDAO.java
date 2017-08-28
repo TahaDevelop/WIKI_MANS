@@ -1,6 +1,7 @@
 package com.formation.wiki.dao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -32,7 +33,7 @@ public class CommentaireDAO {
 		
 		tx.begin();
 		comment.setArticle(article);
-		comment.setUser(user);
+		//comment.setUser(user);
 		em.persist(comment);
 		tx.commit();
 	}
@@ -41,7 +42,7 @@ public class CommentaireDAO {
 		
 		tx.begin();
 		comment.setArticle(article);
-		comment.setUser(user);
+		//comment.setUser(user);
 		em.merge(comment);
 		tx.commit();
 	}
@@ -71,5 +72,33 @@ public class CommentaireDAO {
 //		List<Commentaire> listeCommentaires=query.getResultList();
 //		return listeCommentaires ;
 	}
+	
+	
+
+	// created by SY
+		public List<Commentaire> getByPeriod(Date fromDate, Date toDate) {
+
+			Query query=em.createQuery("select c from Commentaire c WHERE c.commentDate BETWEEN :fromDate AND :toDate ORDER BY c.commentDate asc");
+			
+			query.setParameter("fromDate", fromDate);
+			query.setParameter("toDate", toDate);
+			
+			List<Commentaire> listeCommentaires=query.getResultList();
+			
+			for(Commentaire commentaire : listeCommentaires){
+			
+				System.out.println(commentaire.getCommentDate());
+			} 
+			
+			return listeCommentaires;
+			
+		}
 }
+
+
+
+
+
+
+
 
