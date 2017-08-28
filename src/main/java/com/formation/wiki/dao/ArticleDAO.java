@@ -80,7 +80,7 @@ public class ArticleDAO {
 	// --------------------------------gelAllArticle
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticle() {
-		Query q = em.createQuery("SELECT a FROM article a");
+		Query q = em.createQuery("SELECT a FROM Article a");
 
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
@@ -138,39 +138,18 @@ public class ArticleDAO {
 		String query = "SELECT art FROM Article art WHERE art.statut.waitingforvalidation =true";
 		Query q = em.createQuery(query);
 		List<Article> resultsAttendreAprove = q.getResultList();
-		System.out.println(resultsAttendreAprove.size());
+//		System.out.println(resultsAttendreAprove.size());
 //		for(Article article : resultsAttendreAprove){
-//		
 //			System.out.println(article.getTitle());
 //		} 
 		return resultsAttendreAprove;
 	}
 
 	// ********************************** Article du mois, LIUDMILA **********TEST OK********
-	@SuppressWarnings("unchecked")
-	public String articleDuMois() {
-		String articleDuMois=null;
-		String query = "SELECT art.commentaires.size, art.title FROM Article art ORDER BY art.commentaires.size asc";
+	public int articleDuMois() {
+		String query = "SELECT art.id FROM Article art ORDER BY art.commentaires.size asc";
 		Query q = em.createQuery(query);
-		List<Object[]> listMonth = q.getResultList();
-		Map<Integer, String> hm = new HashMap<Integer, String>();
-		for (Object ligneAsObject : listMonth) {
-
-			// ligne correspond à une des lignes du résultat
-			System.out.println();
-			
-			Object[] ligne = (Object[]) ligneAsObject;
-			
-			hm.put((Integer) ligne[0], (String) ligne[1]);
-			
-//			for (Map.Entry mapentry : hm.entrySet()) {
-//		           System.out.println("clé: "+mapentry.getKey() 
-//		                              + " | valeur: " + mapentry.getValue());
-//		        }
-			articleDuMois=(String) ligne[1];
-		}
-		System.out.println(articleDuMois);
-		return articleDuMois;
+		return (Integer) q.getResultList().get(0);
 
 	}
 
