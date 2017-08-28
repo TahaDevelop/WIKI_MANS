@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 package com.formation.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
@@ -42,70 +42,6 @@ private ArticleDAO artDAO;
 		assertEquals(compteur, artDAO.getAllArticleReportedasabused().size());
 		
 	}
-	
-	@Test
-	public void getAllArticlebyCatgtest(){
-		Long compteur=0L;
-		Long nbParCategorie=0L;
-		for(Article article : artDAO.getAllArticle()){
-			if(article.getCategorie().equals("aventure")){
-				compteur +=1;
-			}
-		}
-
-		Map<String, Long> artA = artDAO.getAllArticlebyCatg();
-		for (Map.Entry elementCategorie : artA.entrySet()) {
-	           System.out.println("clé: "+elementCategorie.getKey() 
-	                              + " | valeur: " + elementCategorie.getValue());
-	           if(elementCategorie.getKey().equals("aventure")){
-	        	  nbParCategorie=(Long) elementCategorie.getValue();
-	           }
-	        }
-		assertEquals(compteur, nbParCategorie);
-	}
-}
-=======
-package com.formation.test;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import com.formation.wiki.dao.ArticleDAO;
-import com.formation.wiki.entity.Article;
-import com.formation.wiki.entity.Commentaire;
-import com.formation.wiki.entity.Statut;
-import static org.junit.Assert.*;
-
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-
-import org.junit.Before;
-
-public class ArticleDAOtest {
-	
-	private Article articleTester;
-	private Commentaire commentTester;
-	private Statut statutTester;
-	private EntityManager em;
-	private EntityTransaction tx;
-	
-	@Before
-	public void executeBeforeTest() {
-		commentTester = new Commentaire();
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU_WIKI");
-		em = emf.createEntityManager();
-		tx = em.getTransaction();
-	}
-	
-	
-	@Rule
-	public final ExpectedException exception = ExpectedException.none();
-	
 	@Test
 	public void getArticleAttendretest() {
 		ArticleDAO art = new ArticleDAO();
@@ -137,8 +73,26 @@ public class ArticleDAOtest {
 		assertEquals(article, articleDuMois);
 
 		}	
-}
 	
+	@Test
+	public void getAllArticlebyCatgtest(){
+		Long compteur=0L;
+		Long nbParCategorie=0L;
+		for(Article article : artDAO.getAllArticle()){
+			if(article.getCategorie().equals("aventure")){
+				compteur +=1;
+			}
+		}
 
+		Map<String, Long> artA = artDAO.getAllArticlebyCatg();
+		for (Map.Entry elementCategorie : artA.entrySet()) {
+	           System.out.println("clÃ©: "+elementCategorie.getKey() 
+	                              + " | valeur: " + elementCategorie.getValue());
+	           if(elementCategorie.getKey().equals("aventure")){
+	        	  nbParCategorie=(Long) elementCategorie.getValue();
+	           }
+	        }
+		assertEquals(compteur, nbParCategorie);
+	}
+}
 
->>>>>>> 1e25f20bf23858d5e6c19760ae27b94c9804334e
