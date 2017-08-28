@@ -52,8 +52,8 @@ public class UtilisateurDAO {
 		tx.begin();
 		em.persist(user);
 		// Suppression d'un objet em.remove(entity);
-		// Mise � jour d'un objet em.merge(entity);
-		// R�cup�ration d'un objet em.find(entityClass, primaryKey);
+		// Mise ï¿½ jour d'un objet em.merge(entity);
+		// Rï¿½cupï¿½ration d'un objet em.find(entityClass, primaryKey);
 		tx.commit();
 	}
 
@@ -81,7 +81,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
-<<<<<<< HEAD
+
 	
 	/** Autheur: Sahobi
 	 * methode getUserById
@@ -108,7 +108,7 @@ public class UtilisateurDAO {
 	}
 
 	
-=======
+
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
 			   
@@ -153,7 +153,7 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 
-<<<<<<< HEAD
+
 	//COMMENCE ICI
 	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
@@ -178,7 +178,7 @@ public class UtilisateurDAO {
 		Query query=em.createQuery("select user from Utilisateur user");
 		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
-=======
+	}
 	/*
 	 * UsersWaitingActivation()
 	 */
@@ -188,8 +188,6 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = q.getResultList();
 		return lusers;
->>>>>>> ce04a12d8aa321d13811c55879ff1b04e63480dd
 	}
->>>>>>> 806791240ec046dbb4e6819fc6c0ffbbcda06d40
 }
 
