@@ -90,7 +90,7 @@ public class ArticleDAO {
 	// --------------------------------gelAllArticle
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticle() {
-		Query q = em.createQuery("SELECT a FROM article a");
+		Query q = em.createQuery("SELECT a FROM Article a");
 
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
@@ -137,7 +137,7 @@ public class ArticleDAO {
 	// -----------------------Afficher articles avec statut reportedasabused
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticleReportedasabused() {
-		Query q = em.createQuery("SELECT a FROM Article a, Statut s WHERE a.statut=s.id and s.reportedasabused= true");
+		Query q = em.createQuery("SELECT a FROM Article a WHERE a.statut.reportedasabused= true");
 		List<Article> listArticles = (List<Article>) q.getResultList();
 		return listArticles;
 	}
@@ -189,26 +189,32 @@ public class ArticleDAO {
 	/// ------------------------------------------------------------------------
 	// gelAllArticle by month
 	@SuppressWarnings("unchecked")
-	public Map<String, Integer> getArticlebyMonth() {
+	public Map<String, Long> getArticlebyMonth() {
 
-		String script = "SELECT Month(a.publishDate) AS Mois, count(*) AS nb FROM Article a GROUP BY Month(a.publishDate)";
+		String script = "SELECT Month(a.publishDate) AS Mois, count(a.id) AS nb FROM Article a GROUP BY Month(a.publishDate)";
 		Query query = em.createQuery(script);
 		List<Object[]> listMonth = query.getResultList();
-		Map<String, Integer> hm = new HashMap<String, Integer>();
+		Map<String, Long> hm = new HashMap<String, Long>();
 		for (Object ligneAsObject : listMonth) {
 
 			// ligne correspond à une des lignes du résultat
 			Object[] ligne = (Object[]) ligneAsObject;
-			hm.put((String) ligne[0], (Integer) ligne[1]);
+			hm.put((String) ligne[0], (Long) ligne[1]);
 		}
 		return hm;
 
 	}
 	//-------nombre d'articles par catégorie
 		@SuppressWarnings("unchecked")
-		public List<Article> getAllArticlebyCatg() {
-			Query q = em.createQuery("SELECT categorie, count(*) as number FROM Article a GROUP BY categorie");
-			List<Article> listArticles = (List<Article>) q.getResultList();
-			return listArticles;
+		public Map<String, Long> getAllArticlebyCatg() {
+			Query q = em.createQuery("SELECT a.categorie, count(a.id) as number FROM Article a GROUP BY a.categorie");
+			List<Object[]> listCatg = q.getResultList();
+			System.out.println(listCatg.size());
+			Map<String, Long> hm=new HashMap<String, Long>();
+			for (Object ligneasObject : listCatg){
+				Object[] ligne=(Object[]) ligneasObject;
+				hm.put((String) ligne[0] , (Long) ligne[1]);
+			}
+			return hm;
 		}
 }
