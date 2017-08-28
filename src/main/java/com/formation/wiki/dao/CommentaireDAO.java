@@ -85,10 +85,10 @@ public class CommentaireDAO {
 			
 			List<Commentaire> listeCommentaires=query.getResultList();
 			
-			for(Commentaire commentaire : listeCommentaires){
-			
-				System.out.println(commentaire.getCommentDate());
-			} 
+//			for(Commentaire commentaire : listeCommentaires){
+//			
+//				System.out.println(commentaire.getCommentDate());
+//			} 
 			
 			return listeCommentaires;
 			
