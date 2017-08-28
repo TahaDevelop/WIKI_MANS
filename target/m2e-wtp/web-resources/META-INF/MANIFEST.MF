@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: Stagiaire
-<<<<<<< HEAD
 Build-Jdk: 1.8.0_144
-=======
-Build-Jdk: 1.8.0_131
->>>>>>> 7474722abc93e8e94edc513171fe2004a3664cd1
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: Stagiaire
+Build-Jdk: 1.8.0_131
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> ab4266c91678fb663dce8e9c3366f92ba80e022b
