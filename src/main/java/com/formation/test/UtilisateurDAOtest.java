@@ -42,6 +42,7 @@ public class UtilisateurDAOtest {
 		tx = em.getTransaction();
 	}
 
+	// Created by SY
 	
 	@Test
 	public void authentificationUsertest() {
@@ -69,30 +70,36 @@ public class UtilisateurDAOtest {
 		
 	}
 */
-	
+	// Created by SY
 	@Test
 	public void activerUsertest() {
 		
 		boolean acivateUser = true;
 		testU = testUDAO.findbyId(1);
+		
+		
 		testU.setActiver(acivateUser);
+		testUDAO.activerUser(testU);
 		
 		testUref = testUDAO.findbyId(1);
 		assertTrue(testUref.getActiver());
 	
 	}
 	
+	// Created by SY
 	@Test
 	public void deactiverUsertest() {
 		
 		boolean acivateUser = false;
 		testU = testUDAO.findbyId(1);
-		testU.setActiver(false);
 		
+		testUDAO.deactiverUser(testU);
 		testUref = testUDAO.findbyId(1);
+			
 		assertFalse(testUref.getActiver());
 	}
 	
+	// Created by SY
 	@Test
 	public void addCountAbusertest() {
 		
@@ -108,6 +115,7 @@ public class UtilisateurDAOtest {
 	
 	}
 	
+	// Created by SY
 	@Test
 	public void checkIsAbusertest () {
 		testU = testUDAO.findbyId(1);
