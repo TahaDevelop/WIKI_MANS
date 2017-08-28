@@ -51,8 +51,8 @@ public class UtilisateurDAO {
 		tx.begin();
 		em.persist(user);
 		// Suppression d'un objet em.remove(entity);
-		// Mise � jour d'un objet em.merge(entity);
-		// R�cup�ration d'un objet em.find(entityClass, primaryKey);
+		// Mise ï¿½ jour d'un objet em.merge(entity);
+		// Rï¿½cupï¿½ration d'un objet em.find(entityClass, primaryKey);
 		tx.commit();
 	}
 
@@ -80,6 +80,10 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	
 	/** Autheur: Sahobi
 	 * methode getUserById
@@ -106,6 +110,10 @@ public class UtilisateurDAO {
 	}
 
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
 			   
@@ -150,6 +158,10 @@ public class UtilisateurDAO {
 		tx.commit();
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	//COMMENCE ICI
 	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
@@ -175,7 +187,10 @@ public class UtilisateurDAO {
 		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	/*
 	 * UsersWaitingActivation()
 	 * auteur : JP Alonso
@@ -187,6 +202,7 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = (List<Utilisateur>) q.getResultList();
 		return lusers;
+<<<<<<< HEAD
 
 	}
 	
@@ -198,7 +214,12 @@ public class UtilisateurDAO {
 		lusers = (List<Utilisateur>) q.getResultList();
 		return lusers;
 
+=======
+>>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 }
 
