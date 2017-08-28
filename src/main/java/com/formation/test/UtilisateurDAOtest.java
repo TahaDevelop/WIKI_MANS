@@ -2,22 +2,27 @@ package com.formation.test;
 
 import static org.junit.Assert.*;
 
-import javax.persistence.NoResultException;
+import java.sql.SQLException;
+import java.util.concurrent.TimeoutException;
 
-import org.junit.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.formation.wiki.dao.UtilisateurDAO;
+import com.formation.wiki.dao.WikiEntityManager;
 import com.formation.wiki.entity.Role;
 import com.formation.wiki.entity.Utilisateur;
-import com.formation.wiki.dao.*;
 
-import junit.framework.TestCase;
+public class UtilisateurDAOtest {
 
- 
-public class UtilisateurDAOtest {	
 	private Utilisateur testU;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	private Role testRole;
 	private String role_name;
@@ -27,29 +32,114 @@ public class UtilisateurDAOtest {
 	String role_name;
 	Utilisateur user;
 >>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
+=======
+	private Utilisateur testUref;
+	private UtilisateurDAO testUDAO;
+	Role testRole;
+	String role_name;
+	private EntityManager em;
+	private EntityTransaction tx;
+>>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
 	
 	@Before
 	public void executeBeforeTest() {
-		 role_name=null;
-		 testU = new Utilisateur();
-		 testRole = new Role();
-		 utilisateurDAOtest=new UtilisateurDAO();
-		 testRole.setName("ADMIN");
-		 testU.setRole(testRole);	 
-		 
-		 testU.setLogin("Sahobi");
- 		 testU.setIdUser(1);
-		 
+		
+		role_name = null;
+		testU = new Utilisateur();
+		testUref = new Utilisateur();
+		testUDAO = new UtilisateurDAO();
+		testRole = new Role();
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU_WIKI");
+		em = emf.createEntityManager();
+		tx = em.getTransaction();
+	}
+
+	// Created by SY
+	
+	@Test
+	public void authentificationUsertest() {
+		
+		testU = testUDAO.findbyId(2);
+		assertEquals(testU.getRole().getName(), "ADMIN");
+		
 	}
 	
- 
+	// Created by SY
+	@Test
+	public void creationUsertest() {
+
+		// une seule fois Ã§a  marche cet test car login est unique
+		testU.setLogin("testUT");
+		testU.setPassword("1234");
+		testU.setNom("testUT");
+		testU.setPrenom("testuserprenom");
+
+		testUDAO.creationUser(testU, "MEMBRE");
+		
+		testUref = testUDAO.getUserByLogin("testUT");
+		assertEquals(testU.getLogin(), testUref.getLogin());
+		
+	}
+	
+	// Created by SY
+	@Test
+	public void activerUsertest() {
+		
+		boolean acivateUser = true;
+		testU = testUDAO.findbyId(1);
+		
+		
+		testU.setActiver(acivateUser);
+		testUDAO.activerUser(testU);
+		
+		testUref = testUDAO.findbyId(1);
+		assertTrue(testUref.getActiver());
+	
+	}
+	
+	// Created by SY
+	@Test
+	public void deactiverUsertest() {
+		
+		boolean acivateUser = false;
+		testU = testUDAO.findbyId(1);
+		
+		testUDAO.deactiverUser(testU);
+		testUref = testUDAO.findbyId(1);
+			
+		assertFalse(testUref.getActiver());
+	}
+	
+	// Created by SY
+	@Test
+	public void addCountAbusertest() {
+		
+		int backupReportAbuser=0;
+		testU = testUDAO.findbyId(1);
+		backupReportAbuser = testU.getReportAbuser();
+		
+		testUDAO.addReportAbuser(testU);
+				
+		testU = testUDAO.findbyId(1);
+		
+		assertEquals(backupReportAbuser+1, testU.getReportAbuser());
+	
+	}
+	
+	// Created by SY
+	@Test
+	public void checkIsAbusertest () {
+		testU = testUDAO.findbyId(1);
+		assertTrue(testUDAO.checkIsAbuser(testU));
+	}
 	/**Autheur  : Sahobi
-	 * Objectif : verifier l'utilisateur à partir du Login="Sahobi"
+	 * Objectif : verifier l'utilisateur Ã  partir du Login="Sahobi"
 	 * */
- 	@Test(expected=NoResultException.class)
+ 	@Test(expected= NoResultException.class)
 	public void getUserByLoginTest(){		
- 		assertNotNull(utilisateurDAOtest.getUserByLogin("Sahobi"));
- 		assertNull(utilisateurDAOtest.getUserByLogin("NON"));
+ 		assertNotNull(testUDAO.getUserByLogin("Sahobi"));
+ 		assertNull(testUDAO.getUserByLogin("NON"));
  		
 	}
 <<<<<<< HEAD
@@ -80,14 +170,18 @@ public class UtilisateurDAOtest {
 =======
  	
  	/**Autheur  : Sahobi
-	 * Objectif : verifier l'utilisateur à partir d'un IdUser
+	 * Objectif : verifier l'utilisateur Ã  partir d'un IdUser
 	 * */
  	@Test
  	public void getUserByIdTest(){
- 		utilisateurDAOtest.getUserById(1);
+ 		testUDAO.getUserById(1);
  	}
+<<<<<<< HEAD
 >>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 }
 
 
+=======
+>>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
 
+}

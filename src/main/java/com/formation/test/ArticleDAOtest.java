@@ -103,11 +103,7 @@ private ArticleDAO artDAO;
 
 	@Test
 	public void getAllArticleByAuthor() {
-		UtilisateurDAO utilisateurDAO=new UtilisateurDAO();
-		Article article=new Article();
-		article.setCategorie("JUNIT TEST");
-		article.setUser(utilisateurDAO.findbyId(1));
-		artDAO.addArt(article);
+	
 		List<Article> listTest = artDAO.getAllArticleByAuthor("benji");
 		if (!listTest.isEmpty()){
 			for (int i = 0; i < listTest.size(); i++) {
@@ -141,7 +137,7 @@ private ArticleDAO artDAO;
 	}
 
 		@Test
-		public void getAllArticlebymonth(){
+		public void getAllArticlebymonthtest(){
 			Long compteur=0L;
 			Long nbParCategorie=0L;
 			Calendar cal = Calendar.getInstance();
@@ -155,7 +151,7 @@ private ArticleDAO artDAO;
 
 			Map<Integer, Long> artA = artDAO.getArticlebyMonth();
 			for (Map.Entry elementMonth : artA.entrySet()) {
-		           System.out.println("cl�: "+elementMonth.getKey() 
+		           System.out.println("clé: "+elementMonth.getKey() 
 		                              + " | valeur: " + elementMonth.getValue());
 		           if(elementMonth.getKey().equals(8)){
 		        	  nbParCategorie=(Long) elementMonth.getValue();
@@ -230,7 +226,7 @@ private ArticleDAO artDAO;
 
 		Map<String, Long> artA = artDAO.getAllArticlebyCatg();
 		for (Map.Entry elementCategorie : artA.entrySet()) {
-	           System.out.println("clé: "+elementCategorie.getKey() 
+	           System.out.println("clÃ©: "+elementCategorie.getKey() 
 	                              + " | valeur: " + elementCategorie.getValue());
 	           if(elementCategorie.getKey().equals("aventure")){
 	        	  nbParCategorie=(Long) elementCategorie.getValue();

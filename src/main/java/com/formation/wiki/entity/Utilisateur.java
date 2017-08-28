@@ -240,6 +240,18 @@ public class Utilisateur implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	private Role role;
 	
+	private int reportAbuser;
+	
+	
+	
+	public int getReportAbuser() {
+		return reportAbuser;
+	}
+
+	public void setReportAbuser(int reportAbuser) {
+		this.reportAbuser = reportAbuser;
+	}
+
 	public Utilisateur() {
 	}
 	
