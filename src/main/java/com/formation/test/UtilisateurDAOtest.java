@@ -22,24 +22,17 @@ import com.formation.wiki.entity.Utilisateur;
 public class UtilisateurDAOtest {
 
 	private Utilisateur testU;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	private Role testRole;
 	private String role_name;
-=======
 	private UtilisateurDAO utilisateurDAOtest;
-	Role testRole;
-	String role_name;
 	Utilisateur user;
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
-=======
+
 	private Utilisateur testUref;
 	private UtilisateurDAO testUDAO;
-	Role testRole;
-	String role_name;
+
 	private EntityManager em;
 	private EntityTransaction tx;
->>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
 	
 	@Before
 	public void executeBeforeTest() {
@@ -69,7 +62,7 @@ public class UtilisateurDAOtest {
 	@Test
 	public void creationUsertest() {
 
-		// une seule fois ça  marche cet test car login est unique
+		// une seule fois Ã§a  marche cet test car login est unique
 		testU.setLogin("testUT");
 		testU.setPassword("1234");
 		testU.setNom("testUT");
@@ -134,7 +127,7 @@ public class UtilisateurDAOtest {
 		assertTrue(testUDAO.checkIsAbuser(testU));
 	}
 	/**Autheur  : Sahobi
-	 * Objectif : verifier l'utilisateur à partir du Login="Sahobi"
+	 * Objectif : verifier l'utilisateur Ã  partir du Login="Sahobi"
 	 * */
  	@Test(expected= NoResultException.class)
 	public void getUserByLoginTest(){		
@@ -142,23 +135,7 @@ public class UtilisateurDAOtest {
  		assertNull(testUDAO.getUserByLogin("NON"));
  		
 	}
-<<<<<<< HEAD
-	
-	@Test
-	public void authentificationUsertest() {
-		assertEquals(testU.getRole().getName(),"ADMIN");
-	}
-	
-	@Test
-	public void creationUsertest() {
-		assertNull(testU);
-	}
-	
-	@Test
-	public void activerUsertest() {
 		
-	}
-	
 	@Test
 	/*
 	 * UsersWaitingActivationTest()
@@ -167,21 +144,18 @@ public class UtilisateurDAOtest {
 	public void UsersWaitingActivationTest() {
 		
 	}
-=======
+
  	
  	/**Autheur  : Sahobi
-	 * Objectif : verifier l'utilisateur à partir d'un IdUser
+	 * Objectif : verifier l'utilisateur Ã  partir d'un IdUser
 	 * */
  	@Test
  	public void getUserByIdTest(){
  		testUDAO.getUserById(1);
  	}
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
-}
-
-
-=======
->>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
 
 }
+
+
+
+
