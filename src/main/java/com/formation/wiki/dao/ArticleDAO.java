@@ -180,14 +180,14 @@ public class ArticleDAO {
 			Map<Integer, Long> hm = new HashMap<Integer, Long>();
 			for (Object ligneAsObject : listMonth) {
 
-				// ligne correspond à une des lignes du résultat
+				// ligne correspond Ã  une des lignes du rÃ©sultat
 				Object[] ligne = (Object[]) ligneAsObject;
 				hm.put((Integer) ligne[0], (Long) ligne[1]);
 			}
 			return hm;
 
 		}
-	//-------nombre d'articles par catÃ¯Â¿Â½gorie
+	//-------nombre d'articles par catÃƒÂ¯Ã‚Â¿Ã‚Â½gorie
 		@SuppressWarnings("unchecked")
 		public Map<String, Long> getAllArticlebyCatg() {
 			Query q = em.createQuery("SELECT a.categorie, count(a.id) as number FROM Article a GROUP BY a.categorie");
