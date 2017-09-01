@@ -151,7 +151,7 @@ private ArticleDAO artDAO;
 
 			Map<Integer, Long> artA = artDAO.getArticlebyMonth();
 			for (Map.Entry elementMonth : artA.entrySet()) {
-		           System.out.println("clé: "+elementMonth.getKey() 
+		           System.out.println("clÃ©: "+elementMonth.getKey() 
 		                              + " | valeur: " + elementMonth.getValue());
 		           if(elementMonth.getKey().equals(8)){
 		        	  nbParCategorie=(Long) elementMonth.getValue();
@@ -226,7 +226,7 @@ private ArticleDAO artDAO;
 
 		Map<String, Long> artA = artDAO.getAllArticlebyCatg();
 		for (Map.Entry elementCategorie : artA.entrySet()) {
-	           System.out.println("clÃ©: "+elementCategorie.getKey() 
+	           System.out.println("clÃƒÂ©: "+elementCategorie.getKey() 
 	                              + " | valeur: " + elementCategorie.getValue());
 	           if(elementCategorie.getKey().equals("aventure")){
 	        	  nbParCategorie=(Long) elementCategorie.getValue();
