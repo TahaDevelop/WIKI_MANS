@@ -78,15 +78,7 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
-	
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
-	
-=======
->>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
 	/** Autheur: Sahobi
 	 * methode getUserById
 	 */
@@ -111,11 +103,6 @@ public class UtilisateurDAO {
 		return user;
 	}
 
-	
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 		//	Created by SY : Authentification to create User 
 		//	If the user is deactivated else return null
 			   
@@ -163,15 +150,8 @@ public class UtilisateurDAO {
 		em.merge(user);
 		tx.commit();
 	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	//COMMENCE ICI
 	// PULL AND PUSH POUR SAVOIR QUELS PARAMETRES ONT ETE ENTRES PAR SOO YEON ?
-=======
 	
 	// Created by SY 25.08.2017 : Increase count by 1 for this abuser
 	
@@ -184,21 +164,8 @@ public class UtilisateurDAO {
 		
 	}
 	
-	// Created by SY 25.08.2017 : Check is this user is an abuser 
-	// condition is more than 10 times reported
-	
-	public boolean checkIsAbuser (Utilisateur user) {
-		
-		boolean isAbuser = false; 
-		
-		if (user.getReportAbuser() > 10) {
-			isAbuser = true; 
-		}
-		
-		return isAbuser;
-	}
 
->>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
+
 	public void modifyUser(String login, String mdp, Role role, Utilisateur user) {
 	
 		tx.begin();
@@ -224,14 +191,7 @@ public class UtilisateurDAO {
 		List<Utilisateur> listeUtilisateur=query.getResultList();
 		return listeUtilisateur;
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
-=======
-
->>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
 	/*
 	 * UsersWaitingActivation()
 	 * auteur : JP Alonso
@@ -243,8 +203,7 @@ public class UtilisateurDAO {
 		Query q = em.createNamedQuery("Utilisateur.findNotActivated");
 		lusers = (List<Utilisateur>) q.getResultList();
 		return lusers;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 	}
 	
@@ -256,23 +215,10 @@ public class UtilisateurDAO {
 		lusers = (List<Utilisateur>) q.getResultList();
 		return lusers;
 
-=======
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/TahaDevelop/WIKI_MANS.git
-=======
-	public void addReportAbuser (Utilisateur user) {
-		
-		user.setReportAbuser(user.getReportAbuser()+1);
-		tx.begin();
-		em.merge(user);
-		tx.commit();
-		
-	}
+
+
 	
 	// Created by SY 25.08.2017 : Check is this user is an abuser 
 	// condition is more than 10 times reported
@@ -287,11 +233,9 @@ public class UtilisateurDAO {
 		
 		return isAbuser;
 	}
->>>>>>> c5b63cbf927fdb223307264664f82b7dfb627574
-=======
+
 	}
 
->>>>>>> c41b79f37927497694129f75eebb1bc0c1225e6a
-}
+
 
 
